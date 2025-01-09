@@ -1,0 +1,7 @@
+table Product {
+  id: int32;
+  name: string;
+  price: double;
+}
+
+root_type Product;
