@@ -82,7 +82,7 @@ fn generate_fbs_schema(struct_name: &str, fields: &[(String, String)]) -> String
 mod tests {
     use super::*;
 
-    // Test case for mapping Rust types to FlatBuffers types
+      // Test case for mapping Rust types to FlatBuffers types
     #[test]
     fn test_map_rust_type_to_fbs() {
         assert_eq!(map_rust_type_to_fbs("i32"), "int32");
@@ -92,7 +92,6 @@ mod tests {
         assert_eq!(map_rust_type_to_fbs("String"), "string");
         assert_eq!(map_rust_type_to_fbs("UnknownType"), "Unknown_UnknownType");
     }
-
 
     // Test case for generating a FlatBuffers schema
     #[test]
@@ -108,6 +107,57 @@ mod tests {
         assert_eq!(schema, expected_schema);
     }
 
+    // Test case for struct parsing (basic example)
+    #[test]
+    fn test_struct_parsing() {
+        let input_data = r#"
+struct User {
+    id: i32,
+    name: String,
+    email: String,
+}
+
+struct Product {
+    id: i32,
+    name: String,
+    price: f64,
+}
+"#;
+        
+        let struct_regex = RegexBuilder::new(r"struct\s+(\w+)\s*\{\s*([^}]*)\s*\}")
+            .dot_matches_new_line(true)
+            .build()
+            .expect("Failed to compile struct regex");
+
+        let field_regex = Regex::new(r"(\w+):\s*([\w<>\[\]]+),?")
+            .expect("Failed to compile field regex");
+
+        let mut structs = Vec::new();
+        
+        for captures in struct_regex.captures_iter(input_data) {
+            let struct_name = captures.get(1).unwrap().as_str();
+            let struct_body = captures.get(2).unwrap().as_str();
+
+            let mut fields = Vec::new();
+            for field_caps in field_regex.captures_iter(struct_body) {
+                let field_name = field_caps.get(1).unwrap().as_str();
+                let rust_type  = field_caps.get(2).unwrap().as_str();
+                let fbs_type   = map_rust_type_to_fbs(rust_type);
+                fields.push((field_name.to_string(), fbs_type));
+            }
+
+            structs.push((struct_name, fields));
+        }
+
+        // Test User struct
+        assert_eq!(structs.len(), 2);
+        assert_eq!(structs[0].0, "User");
+        assert_eq!(structs[0].1.len(), 3); // id, name, email
+        assert_eq!(structs[1].0, "Product");
+        assert_eq!(structs[1].1.len(), 3); // id, name, price
+    }
+
+    // Test case for writing the schema to a file
     #[test]
     fn test_write_fbs_schema() {
         let output_folder = "createdFbs";
@@ -128,6 +178,4 @@ mod tests {
         // Verify file is created
         assert!(fs::metadata(output_file).is_ok());
     }
-
-    // You can add more tests here as needed
 }
