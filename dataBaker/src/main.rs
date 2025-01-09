@@ -3,7 +3,7 @@ use std::{fs::File, io::Write};
 use chrono::{Utc, Local};
 use indicatif::{ProgressBar, ProgressStyle};
 
-const NUM_RECORDS: usize = 4_500_000; // Adjusted to approximately 2.25GB
+const NUM_RECORDS: usize = 13_500_000; // Adjusted to approximately 2.25GB
 
 fn random_string(len: usize) -> String {
     rand::thread_rng()
@@ -106,7 +106,7 @@ fn generate_dummy_data(file_path: &str) -> std::io::Result<()> {
 }
 
 fn main() {
-    let file_path = "dummy_data_.csv";
+    let file_path = "dummy_data_6.csv";
 
     match generate_dummy_data(file_path) {
         Ok(_) => println!("Dummy data successfully written to {}", file_path),
