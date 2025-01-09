@@ -1,0 +1,78 @@
+namespace Order;
+
+// Table definition
+table DailyBlotterLifecycle {
+  // Map date/time to string
+  order_date:string;     // originally: date default CURRENT_DATE not null
+  order_time:string;     // originally: time
+  
+  account_number:string; 
+  account_name:string;
+  trader_id:string;
+  symbol:string;
+  order_cc:string;
+  order_it:string;
+  order_id:string;
+  order_id_seq:string;
+  porder_id:string;
+  action:string;
+  side:string;
+
+  qty:int64;             // bigint
+  max_floor:int32;       // integer
+  price:double;          // numeric
+  type:string;
+  dest:string;
+
+  qty_exec:int64;        // bigint
+  price_exec:double;     // numeric
+  exec_mkt:string;
+  cum_qty:int32;         // integer
+  qty_leaves:int32;      // integer
+  
+  cl_order_id:string;
+  cl_order_id_orig:string;
+  root:string;           // e.g. underlying symbol
+  exp:string;            // expiration
+  strike:string;
+  order_cp:string;       // ?
+  client_id:string;
+  firm_id:string;
+  pos_eff:string;        // position effect
+  trade_id:string;
+  exec_id:string;
+  data_source:string;
+  data_sub_source:string;
+  ext:string;
+  smp:string;
+  moi:string;
+
+  stop_price:double;     // numeric
+  order_text:string;     // text
+  order_vo:string;
+  route:string;
+  order_tf:string;
+  issued:string;
+  imid_rpt:string;
+  imid_rcv:string;
+
+  dir:bool = false;      // boolean default false
+  held:bool;             // boolean
+  op_id:string;
+  file_name:string;
+  
+  id:int64;              // bigint (generated identity in SQL)
+  tif:string;
+  is_blotter:bool = false; // boolean default false not null
+  
+  ext_cl_order_id:string; // SQL: varchar (no length specified)
+  trader_name:string;     // SQL: varchar (no length specified)
+
+  // If needed, store dates as strings or 64-bit timestamps
+  created_date:string;    // date default now()
+
+  // Note: FlatBuffers does not support "constraint" or PKs directly.
+}
+
+// Declare which table is the root type
+root_type DailyBlotterLifecycle;
