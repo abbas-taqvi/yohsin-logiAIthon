@@ -10,7 +10,7 @@ extern crate flatbuffers;
 use self::flatbuffers::{EndianScalar, Follow};
 
 #[allow(unused_imports, dead_code)]
-pub mod order {
+pub mod daily_blotter_life_cycle {
 
   use core::mem;
   use core::cmp::Ordering;
@@ -18,145 +18,145 @@ pub mod order {
   extern crate flatbuffers;
   use self::flatbuffers::{EndianScalar, Follow};
 
-pub enum DailyBlotterLifecycleOffset {}
+pub enum DailyBlotterOffset {}
 #[derive(Copy, Clone, PartialEq)]
 
-pub struct DailyBlotterLifecycle<'a> {
+pub struct DailyBlotter<'a> {
   pub _tab: flatbuffers::Table<'a>,
 }
 
-impl<'a> flatbuffers::Follow<'a> for DailyBlotterLifecycle<'a> {
-  type Inner = DailyBlotterLifecycle<'a>;
+impl<'a> flatbuffers::Follow<'a> for DailyBlotter<'a> {
+  type Inner = DailyBlotter<'a>;
   #[inline]
   unsafe fn follow(buf: &'a [u8], loc: usize) -> Self::Inner {
     Self { _tab: flatbuffers::Table::new(buf, loc) }
   }
 }
 
-impl<'a> DailyBlotterLifecycle<'a> {
-  pub const VT_ORDER_DATE: flatbuffers::VOffsetT = 4;
-  pub const VT_ORDER_TIME: flatbuffers::VOffsetT = 6;
-  pub const VT_ACCOUNT_NUMBER: flatbuffers::VOffsetT = 8;
-  pub const VT_ACCOUNT_NAME: flatbuffers::VOffsetT = 10;
-  pub const VT_TRADER_ID: flatbuffers::VOffsetT = 12;
+impl<'a> DailyBlotter<'a> {
+  pub const VT_ORDERDATE: flatbuffers::VOffsetT = 4;
+  pub const VT_ORDERTIME: flatbuffers::VOffsetT = 6;
+  pub const VT_ACCOUNTNUMBER: flatbuffers::VOffsetT = 8;
+  pub const VT_ACCOUNTNAME: flatbuffers::VOffsetT = 10;
+  pub const VT_TRADERID: flatbuffers::VOffsetT = 12;
   pub const VT_SYMBOL: flatbuffers::VOffsetT = 14;
-  pub const VT_ORDER_CC: flatbuffers::VOffsetT = 16;
-  pub const VT_ORDER_IT: flatbuffers::VOffsetT = 18;
-  pub const VT_ORDER_ID: flatbuffers::VOffsetT = 20;
-  pub const VT_ORDER_ID_SEQ: flatbuffers::VOffsetT = 22;
-  pub const VT_PORDER_ID: flatbuffers::VOffsetT = 24;
+  pub const VT_ORDERCC: flatbuffers::VOffsetT = 16;
+  pub const VT_ORDERIT: flatbuffers::VOffsetT = 18;
+  pub const VT_ORDERID: flatbuffers::VOffsetT = 20;
+  pub const VT_ORDERIDSEQ: flatbuffers::VOffsetT = 22;
+  pub const VT_PORDERID: flatbuffers::VOffsetT = 24;
   pub const VT_ACTION: flatbuffers::VOffsetT = 26;
   pub const VT_SIDE: flatbuffers::VOffsetT = 28;
   pub const VT_QTY: flatbuffers::VOffsetT = 30;
-  pub const VT_MAX_FLOOR: flatbuffers::VOffsetT = 32;
+  pub const VT_MAXFLOOR: flatbuffers::VOffsetT = 32;
   pub const VT_PRICE: flatbuffers::VOffsetT = 34;
   pub const VT_TYPE_: flatbuffers::VOffsetT = 36;
   pub const VT_DEST: flatbuffers::VOffsetT = 38;
-  pub const VT_QTY_EXEC: flatbuffers::VOffsetT = 40;
-  pub const VT_PRICE_EXEC: flatbuffers::VOffsetT = 42;
-  pub const VT_EXEC_MKT: flatbuffers::VOffsetT = 44;
-  pub const VT_CUM_QTY: flatbuffers::VOffsetT = 46;
-  pub const VT_QTY_LEAVES: flatbuffers::VOffsetT = 48;
-  pub const VT_CL_ORDER_ID: flatbuffers::VOffsetT = 50;
-  pub const VT_CL_ORDER_ID_ORIG: flatbuffers::VOffsetT = 52;
+  pub const VT_QTYEXEC: flatbuffers::VOffsetT = 40;
+  pub const VT_PRICEEXEC: flatbuffers::VOffsetT = 42;
+  pub const VT_EXECMKT: flatbuffers::VOffsetT = 44;
+  pub const VT_CUMQTY: flatbuffers::VOffsetT = 46;
+  pub const VT_QTYLEAVES: flatbuffers::VOffsetT = 48;
+  pub const VT_CLORDERID: flatbuffers::VOffsetT = 50;
+  pub const VT_CLORDERIDORIG: flatbuffers::VOffsetT = 52;
   pub const VT_ROOT: flatbuffers::VOffsetT = 54;
   pub const VT_EXP: flatbuffers::VOffsetT = 56;
   pub const VT_STRIKE: flatbuffers::VOffsetT = 58;
-  pub const VT_ORDER_CP: flatbuffers::VOffsetT = 60;
-  pub const VT_CLIENT_ID: flatbuffers::VOffsetT = 62;
-  pub const VT_FIRM_ID: flatbuffers::VOffsetT = 64;
-  pub const VT_POS_EFF: flatbuffers::VOffsetT = 66;
-  pub const VT_TRADE_ID: flatbuffers::VOffsetT = 68;
-  pub const VT_EXEC_ID: flatbuffers::VOffsetT = 70;
-  pub const VT_DATA_SOURCE: flatbuffers::VOffsetT = 72;
-  pub const VT_DATA_SUB_SOURCE: flatbuffers::VOffsetT = 74;
+  pub const VT_ORDERCP: flatbuffers::VOffsetT = 60;
+  pub const VT_CLIENTID: flatbuffers::VOffsetT = 62;
+  pub const VT_FIRMID: flatbuffers::VOffsetT = 64;
+  pub const VT_POSEFF: flatbuffers::VOffsetT = 66;
+  pub const VT_TRADEID: flatbuffers::VOffsetT = 68;
+  pub const VT_EXECID: flatbuffers::VOffsetT = 70;
+  pub const VT_DATASOURCE: flatbuffers::VOffsetT = 72;
+  pub const VT_DATASUBSOURCE: flatbuffers::VOffsetT = 74;
   pub const VT_EXT: flatbuffers::VOffsetT = 76;
   pub const VT_SMP: flatbuffers::VOffsetT = 78;
   pub const VT_MOI: flatbuffers::VOffsetT = 80;
-  pub const VT_STOP_PRICE: flatbuffers::VOffsetT = 82;
-  pub const VT_ORDER_TEXT: flatbuffers::VOffsetT = 84;
-  pub const VT_ORDER_VO: flatbuffers::VOffsetT = 86;
+  pub const VT_STOPPRICE: flatbuffers::VOffsetT = 82;
+  pub const VT_ORDERTEXT: flatbuffers::VOffsetT = 84;
+  pub const VT_ORDERVO: flatbuffers::VOffsetT = 86;
   pub const VT_ROUTE: flatbuffers::VOffsetT = 88;
-  pub const VT_ORDER_TF: flatbuffers::VOffsetT = 90;
+  pub const VT_ORDERTF: flatbuffers::VOffsetT = 90;
   pub const VT_ISSUED: flatbuffers::VOffsetT = 92;
-  pub const VT_IMID_RPT: flatbuffers::VOffsetT = 94;
-  pub const VT_IMID_RCV: flatbuffers::VOffsetT = 96;
+  pub const VT_IMIDRPT: flatbuffers::VOffsetT = 94;
+  pub const VT_IMIDRCV: flatbuffers::VOffsetT = 96;
   pub const VT_DIR: flatbuffers::VOffsetT = 98;
   pub const VT_HELD: flatbuffers::VOffsetT = 100;
-  pub const VT_OP_ID: flatbuffers::VOffsetT = 102;
-  pub const VT_FILE_NAME: flatbuffers::VOffsetT = 104;
+  pub const VT_OPID: flatbuffers::VOffsetT = 102;
+  pub const VT_FILENAME: flatbuffers::VOffsetT = 104;
   pub const VT_ID: flatbuffers::VOffsetT = 106;
   pub const VT_TIF: flatbuffers::VOffsetT = 108;
-  pub const VT_IS_BLOTTER: flatbuffers::VOffsetT = 110;
-  pub const VT_EXT_CL_ORDER_ID: flatbuffers::VOffsetT = 112;
+  pub const VT_ISBLOTTER: flatbuffers::VOffsetT = 110;
+  pub const VT_EXTCLORDERID: flatbuffers::VOffsetT = 112;
   pub const VT_TRADER_NAME: flatbuffers::VOffsetT = 114;
   pub const VT_CREATED_DATE: flatbuffers::VOffsetT = 116;
 
   #[inline]
   pub unsafe fn init_from_table(table: flatbuffers::Table<'a>) -> Self {
-    DailyBlotterLifecycle { _tab: table }
+    DailyBlotter { _tab: table }
   }
   #[allow(unused_mut)]
   pub fn create<'bldr: 'args, 'args: 'mut_bldr, 'mut_bldr, A: flatbuffers::Allocator + 'bldr>(
     _fbb: &'mut_bldr mut flatbuffers::FlatBufferBuilder<'bldr, A>,
-    args: &'args DailyBlotterLifecycleArgs<'args>
-  ) -> flatbuffers::WIPOffset<DailyBlotterLifecycle<'bldr>> {
-    let mut builder = DailyBlotterLifecycleBuilder::new(_fbb);
+    args: &'args DailyBlotterArgs<'args>
+  ) -> flatbuffers::WIPOffset<DailyBlotter<'bldr>> {
+    let mut builder = DailyBlotterBuilder::new(_fbb);
+    builder.add_created_date(args.created_date);
     builder.add_id(args.id);
-    builder.add_stop_price(args.stop_price);
-    builder.add_price_exec(args.price_exec);
-    builder.add_qty_exec(args.qty_exec);
+    builder.add_stopprice(args.stopprice);
+    builder.add_priceexec(args.priceexec);
+    builder.add_qtyexec(args.qtyexec);
     builder.add_price(args.price);
     builder.add_qty(args.qty);
-    if let Some(x) = args.created_date { builder.add_created_date(x); }
+    builder.add_ordertime(args.ordertime);
+    builder.add_orderdate(args.orderdate);
     if let Some(x) = args.trader_name { builder.add_trader_name(x); }
-    if let Some(x) = args.ext_cl_order_id { builder.add_ext_cl_order_id(x); }
+    if let Some(x) = args.extclorderid { builder.add_extclorderid(x); }
     if let Some(x) = args.tif { builder.add_tif(x); }
-    if let Some(x) = args.file_name { builder.add_file_name(x); }
-    if let Some(x) = args.op_id { builder.add_op_id(x); }
-    if let Some(x) = args.imid_rcv { builder.add_imid_rcv(x); }
-    if let Some(x) = args.imid_rpt { builder.add_imid_rpt(x); }
+    if let Some(x) = args.filename { builder.add_filename(x); }
+    if let Some(x) = args.opid { builder.add_opid(x); }
+    if let Some(x) = args.imidrcv { builder.add_imidrcv(x); }
+    if let Some(x) = args.imidrpt { builder.add_imidrpt(x); }
     if let Some(x) = args.issued { builder.add_issued(x); }
-    if let Some(x) = args.order_tf { builder.add_order_tf(x); }
+    if let Some(x) = args.ordertf { builder.add_ordertf(x); }
     if let Some(x) = args.route { builder.add_route(x); }
-    if let Some(x) = args.order_vo { builder.add_order_vo(x); }
-    if let Some(x) = args.order_text { builder.add_order_text(x); }
+    if let Some(x) = args.ordervo { builder.add_ordervo(x); }
+    if let Some(x) = args.ordertext { builder.add_ordertext(x); }
     if let Some(x) = args.moi { builder.add_moi(x); }
     if let Some(x) = args.smp { builder.add_smp(x); }
     if let Some(x) = args.ext { builder.add_ext(x); }
-    if let Some(x) = args.data_sub_source { builder.add_data_sub_source(x); }
-    if let Some(x) = args.data_source { builder.add_data_source(x); }
-    if let Some(x) = args.exec_id { builder.add_exec_id(x); }
-    if let Some(x) = args.trade_id { builder.add_trade_id(x); }
-    if let Some(x) = args.pos_eff { builder.add_pos_eff(x); }
-    if let Some(x) = args.firm_id { builder.add_firm_id(x); }
-    if let Some(x) = args.client_id { builder.add_client_id(x); }
-    if let Some(x) = args.order_cp { builder.add_order_cp(x); }
+    if let Some(x) = args.datasubsource { builder.add_datasubsource(x); }
+    if let Some(x) = args.datasource { builder.add_datasource(x); }
+    if let Some(x) = args.execid { builder.add_execid(x); }
+    if let Some(x) = args.tradeid { builder.add_tradeid(x); }
+    if let Some(x) = args.poseff { builder.add_poseff(x); }
+    if let Some(x) = args.firmid { builder.add_firmid(x); }
+    if let Some(x) = args.clientid { builder.add_clientid(x); }
+    if let Some(x) = args.ordercp { builder.add_ordercp(x); }
     if let Some(x) = args.strike { builder.add_strike(x); }
     if let Some(x) = args.exp { builder.add_exp(x); }
     if let Some(x) = args.root { builder.add_root(x); }
-    if let Some(x) = args.cl_order_id_orig { builder.add_cl_order_id_orig(x); }
-    if let Some(x) = args.cl_order_id { builder.add_cl_order_id(x); }
-    builder.add_qty_leaves(args.qty_leaves);
-    builder.add_cum_qty(args.cum_qty);
-    if let Some(x) = args.exec_mkt { builder.add_exec_mkt(x); }
+    if let Some(x) = args.clorderidorig { builder.add_clorderidorig(x); }
+    if let Some(x) = args.clorderid { builder.add_clorderid(x); }
+    builder.add_qtyleaves(args.qtyleaves);
+    builder.add_cumqty(args.cumqty);
+    if let Some(x) = args.execmkt { builder.add_execmkt(x); }
     if let Some(x) = args.dest { builder.add_dest(x); }
     if let Some(x) = args.type_ { builder.add_type_(x); }
-    builder.add_max_floor(args.max_floor);
+    builder.add_maxfloor(args.maxfloor);
     if let Some(x) = args.side { builder.add_side(x); }
     if let Some(x) = args.action { builder.add_action(x); }
-    if let Some(x) = args.porder_id { builder.add_porder_id(x); }
-    if let Some(x) = args.order_id_seq { builder.add_order_id_seq(x); }
-    if let Some(x) = args.order_id { builder.add_order_id(x); }
-    if let Some(x) = args.order_it { builder.add_order_it(x); }
-    if let Some(x) = args.order_cc { builder.add_order_cc(x); }
+    if let Some(x) = args.porderid { builder.add_porderid(x); }
+    if let Some(x) = args.orderidseq { builder.add_orderidseq(x); }
+    if let Some(x) = args.orderid { builder.add_orderid(x); }
+    if let Some(x) = args.orderit { builder.add_orderit(x); }
+    if let Some(x) = args.ordercc { builder.add_ordercc(x); }
     if let Some(x) = args.symbol { builder.add_symbol(x); }
-    if let Some(x) = args.trader_id { builder.add_trader_id(x); }
-    if let Some(x) = args.account_name { builder.add_account_name(x); }
-    if let Some(x) = args.account_number { builder.add_account_number(x); }
-    if let Some(x) = args.order_time { builder.add_order_time(x); }
-    if let Some(x) = args.order_date { builder.add_order_date(x); }
-    builder.add_is_blotter(args.is_blotter);
+    if let Some(x) = args.traderid { builder.add_traderid(x); }
+    if let Some(x) = args.accountname { builder.add_accountname(x); }
+    if let Some(x) = args.accountnumber { builder.add_accountnumber(x); }
+    builder.add_isblotter(args.isblotter);
     builder.add_held(args.held);
     builder.add_dir(args.dir);
     builder.finish()
@@ -164,979 +164,908 @@ impl<'a> DailyBlotterLifecycle<'a> {
 
 
   #[inline]
-  pub fn order_date(&self) -> Option<&'a str> {
+  pub fn orderdate(&self) -> i64 {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_ORDER_DATE, None)}
+    unsafe { self._tab.get::<i64>(DailyBlotter::VT_ORDERDATE, Some(0)).unwrap()}
   }
   #[inline]
-  pub fn order_time(&self) -> Option<&'a str> {
+  pub fn ordertime(&self) -> i64 {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_ORDER_TIME, None)}
+    unsafe { self._tab.get::<i64>(DailyBlotter::VT_ORDERTIME, Some(0)).unwrap()}
   }
   #[inline]
-  pub fn account_number(&self) -> Option<&'a str> {
+  pub fn accountnumber(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_ACCOUNT_NUMBER, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_ACCOUNTNUMBER, None)}
   }
   #[inline]
-  pub fn account_name(&self) -> Option<&'a str> {
+  pub fn accountname(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_ACCOUNT_NAME, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_ACCOUNTNAME, None)}
   }
   #[inline]
-  pub fn trader_id(&self) -> Option<&'a str> {
+  pub fn traderid(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_TRADER_ID, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_TRADERID, None)}
   }
   #[inline]
   pub fn symbol(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_SYMBOL, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_SYMBOL, None)}
   }
   #[inline]
-  pub fn order_cc(&self) -> Option<&'a str> {
+  pub fn ordercc(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_ORDER_CC, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_ORDERCC, None)}
   }
   #[inline]
-  pub fn order_it(&self) -> Option<&'a str> {
+  pub fn orderit(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_ORDER_IT, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_ORDERIT, None)}
   }
   #[inline]
-  pub fn order_id(&self) -> Option<&'a str> {
+  pub fn orderid(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_ORDER_ID, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_ORDERID, None)}
   }
   #[inline]
-  pub fn order_id_seq(&self) -> Option<&'a str> {
+  pub fn orderidseq(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_ORDER_ID_SEQ, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_ORDERIDSEQ, None)}
   }
   #[inline]
-  pub fn porder_id(&self) -> Option<&'a str> {
+  pub fn porderid(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_PORDER_ID, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_PORDERID, None)}
   }
   #[inline]
   pub fn action(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_ACTION, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_ACTION, None)}
   }
   #[inline]
   pub fn side(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_SIDE, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_SIDE, None)}
   }
   #[inline]
   pub fn qty(&self) -> i64 {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<i64>(DailyBlotterLifecycle::VT_QTY, Some(0)).unwrap()}
+    unsafe { self._tab.get::<i64>(DailyBlotter::VT_QTY, Some(0)).unwrap()}
   }
   #[inline]
-  pub fn max_floor(&self) -> i32 {
+  pub fn maxfloor(&self) -> i32 {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<i32>(DailyBlotterLifecycle::VT_MAX_FLOOR, Some(0)).unwrap()}
+    unsafe { self._tab.get::<i32>(DailyBlotter::VT_MAXFLOOR, Some(0)).unwrap()}
   }
   #[inline]
   pub fn price(&self) -> f64 {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<f64>(DailyBlotterLifecycle::VT_PRICE, Some(0.0)).unwrap()}
+    unsafe { self._tab.get::<f64>(DailyBlotter::VT_PRICE, Some(0.0)).unwrap()}
   }
   #[inline]
   pub fn type_(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_TYPE_, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_TYPE_, None)}
   }
   #[inline]
   pub fn dest(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_DEST, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_DEST, None)}
   }
   #[inline]
-  pub fn qty_exec(&self) -> i64 {
+  pub fn qtyexec(&self) -> i64 {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<i64>(DailyBlotterLifecycle::VT_QTY_EXEC, Some(0)).unwrap()}
+    unsafe { self._tab.get::<i64>(DailyBlotter::VT_QTYEXEC, Some(0)).unwrap()}
   }
   #[inline]
-  pub fn price_exec(&self) -> f64 {
+  pub fn priceexec(&self) -> f64 {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<f64>(DailyBlotterLifecycle::VT_PRICE_EXEC, Some(0.0)).unwrap()}
+    unsafe { self._tab.get::<f64>(DailyBlotter::VT_PRICEEXEC, Some(0.0)).unwrap()}
   }
   #[inline]
-  pub fn exec_mkt(&self) -> Option<&'a str> {
+  pub fn execmkt(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_EXEC_MKT, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_EXECMKT, None)}
   }
   #[inline]
-  pub fn cum_qty(&self) -> i32 {
+  pub fn cumqty(&self) -> i32 {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<i32>(DailyBlotterLifecycle::VT_CUM_QTY, Some(0)).unwrap()}
+    unsafe { self._tab.get::<i32>(DailyBlotter::VT_CUMQTY, Some(0)).unwrap()}
   }
   #[inline]
-  pub fn qty_leaves(&self) -> i32 {
+  pub fn qtyleaves(&self) -> i32 {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<i32>(DailyBlotterLifecycle::VT_QTY_LEAVES, Some(0)).unwrap()}
+    unsafe { self._tab.get::<i32>(DailyBlotter::VT_QTYLEAVES, Some(0)).unwrap()}
   }
   #[inline]
-  pub fn cl_order_id(&self) -> Option<&'a str> {
+  pub fn clorderid(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_CL_ORDER_ID, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_CLORDERID, None)}
   }
   #[inline]
-  pub fn cl_order_id_orig(&self) -> Option<&'a str> {
+  pub fn clorderidorig(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_CL_ORDER_ID_ORIG, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_CLORDERIDORIG, None)}
   }
   #[inline]
   pub fn root(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_ROOT, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_ROOT, None)}
   }
   #[inline]
   pub fn exp(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_EXP, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_EXP, None)}
   }
   #[inline]
   pub fn strike(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_STRIKE, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_STRIKE, None)}
   }
   #[inline]
-  pub fn order_cp(&self) -> Option<&'a str> {
+  pub fn ordercp(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_ORDER_CP, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_ORDERCP, None)}
   }
   #[inline]
-  pub fn client_id(&self) -> Option<&'a str> {
+  pub fn clientid(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_CLIENT_ID, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_CLIENTID, None)}
   }
   #[inline]
-  pub fn firm_id(&self) -> Option<&'a str> {
+  pub fn firmid(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_FIRM_ID, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_FIRMID, None)}
   }
   #[inline]
-  pub fn pos_eff(&self) -> Option<&'a str> {
+  pub fn poseff(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_POS_EFF, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_POSEFF, None)}
   }
   #[inline]
-  pub fn trade_id(&self) -> Option<&'a str> {
+  pub fn tradeid(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_TRADE_ID, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_TRADEID, None)}
   }
   #[inline]
-  pub fn exec_id(&self) -> Option<&'a str> {
+  pub fn execid(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_EXEC_ID, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_EXECID, None)}
   }
   #[inline]
-  pub fn data_source(&self) -> Option<&'a str> {
+  pub fn datasource(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_DATA_SOURCE, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_DATASOURCE, None)}
   }
   #[inline]
-  pub fn data_sub_source(&self) -> Option<&'a str> {
+  pub fn datasubsource(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_DATA_SUB_SOURCE, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_DATASUBSOURCE, None)}
   }
   #[inline]
   pub fn ext(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_EXT, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_EXT, None)}
   }
   #[inline]
   pub fn smp(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_SMP, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_SMP, None)}
   }
   #[inline]
   pub fn moi(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_MOI, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_MOI, None)}
   }
   #[inline]
-  pub fn stop_price(&self) -> f64 {
+  pub fn stopprice(&self) -> f64 {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<f64>(DailyBlotterLifecycle::VT_STOP_PRICE, Some(0.0)).unwrap()}
+    unsafe { self._tab.get::<f64>(DailyBlotter::VT_STOPPRICE, Some(0.0)).unwrap()}
   }
   #[inline]
-  pub fn order_text(&self) -> Option<&'a str> {
+  pub fn ordertext(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_ORDER_TEXT, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_ORDERTEXT, None)}
   }
   #[inline]
-  pub fn order_vo(&self) -> Option<&'a str> {
+  pub fn ordervo(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_ORDER_VO, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_ORDERVO, None)}
   }
   #[inline]
   pub fn route(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_ROUTE, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_ROUTE, None)}
   }
   #[inline]
-  pub fn order_tf(&self) -> Option<&'a str> {
+  pub fn ordertf(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_ORDER_TF, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_ORDERTF, None)}
   }
   #[inline]
   pub fn issued(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_ISSUED, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_ISSUED, None)}
   }
   #[inline]
-  pub fn imid_rpt(&self) -> Option<&'a str> {
+  pub fn imidrpt(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_IMID_RPT, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_IMIDRPT, None)}
   }
   #[inline]
-  pub fn imid_rcv(&self) -> Option<&'a str> {
+  pub fn imidrcv(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_IMID_RCV, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_IMIDRCV, None)}
   }
   #[inline]
   pub fn dir(&self) -> bool {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<bool>(DailyBlotterLifecycle::VT_DIR, Some(false)).unwrap()}
+    unsafe { self._tab.get::<bool>(DailyBlotter::VT_DIR, Some(false)).unwrap()}
   }
   #[inline]
   pub fn held(&self) -> bool {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<bool>(DailyBlotterLifecycle::VT_HELD, Some(false)).unwrap()}
+    unsafe { self._tab.get::<bool>(DailyBlotter::VT_HELD, Some(false)).unwrap()}
   }
   #[inline]
-  pub fn op_id(&self) -> Option<&'a str> {
+  pub fn opid(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_OP_ID, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_OPID, None)}
   }
   #[inline]
-  pub fn file_name(&self) -> Option<&'a str> {
+  pub fn filename(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_FILE_NAME, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_FILENAME, None)}
   }
   #[inline]
   pub fn id(&self) -> i64 {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<i64>(DailyBlotterLifecycle::VT_ID, Some(0)).unwrap()}
+    unsafe { self._tab.get::<i64>(DailyBlotter::VT_ID, Some(0)).unwrap()}
   }
   #[inline]
   pub fn tif(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_TIF, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_TIF, None)}
   }
   #[inline]
-  pub fn is_blotter(&self) -> bool {
+  pub fn isblotter(&self) -> bool {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<bool>(DailyBlotterLifecycle::VT_IS_BLOTTER, Some(false)).unwrap()}
+    unsafe { self._tab.get::<bool>(DailyBlotter::VT_ISBLOTTER, Some(false)).unwrap()}
   }
   #[inline]
-  pub fn ext_cl_order_id(&self) -> Option<&'a str> {
+  pub fn extclorderid(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_EXT_CL_ORDER_ID, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_EXTCLORDERID, None)}
   }
   #[inline]
   pub fn trader_name(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_TRADER_NAME, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotter::VT_TRADER_NAME, None)}
   }
   #[inline]
-  pub fn created_date(&self) -> Option<&'a str> {
+  pub fn created_date(&self) -> i64 {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(DailyBlotterLifecycle::VT_CREATED_DATE, None)}
+    unsafe { self._tab.get::<i64>(DailyBlotter::VT_CREATED_DATE, Some(0)).unwrap()}
   }
 }
 
-impl flatbuffers::Verifiable for DailyBlotterLifecycle<'_> {
+impl flatbuffers::Verifiable for DailyBlotter<'_> {
   #[inline]
   fn run_verifier(
     v: &mut flatbuffers::Verifier, pos: usize
   ) -> Result<(), flatbuffers::InvalidFlatbuffer> {
     use self::flatbuffers::Verifiable;
     v.visit_table(pos)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("order_date", Self::VT_ORDER_DATE, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("order_time", Self::VT_ORDER_TIME, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("account_number", Self::VT_ACCOUNT_NUMBER, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("account_name", Self::VT_ACCOUNT_NAME, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("trader_id", Self::VT_TRADER_ID, false)?
+     .visit_field::<i64>("orderdate", Self::VT_ORDERDATE, false)?
+     .visit_field::<i64>("ordertime", Self::VT_ORDERTIME, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("accountnumber", Self::VT_ACCOUNTNUMBER, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("accountname", Self::VT_ACCOUNTNAME, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("traderid", Self::VT_TRADERID, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<&str>>("symbol", Self::VT_SYMBOL, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("order_cc", Self::VT_ORDER_CC, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("order_it", Self::VT_ORDER_IT, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("order_id", Self::VT_ORDER_ID, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("order_id_seq", Self::VT_ORDER_ID_SEQ, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("porder_id", Self::VT_PORDER_ID, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("ordercc", Self::VT_ORDERCC, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("orderit", Self::VT_ORDERIT, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("orderid", Self::VT_ORDERID, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("orderidseq", Self::VT_ORDERIDSEQ, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("porderid", Self::VT_PORDERID, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<&str>>("action", Self::VT_ACTION, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<&str>>("side", Self::VT_SIDE, false)?
      .visit_field::<i64>("qty", Self::VT_QTY, false)?
-     .visit_field::<i32>("max_floor", Self::VT_MAX_FLOOR, false)?
+     .visit_field::<i32>("maxfloor", Self::VT_MAXFLOOR, false)?
      .visit_field::<f64>("price", Self::VT_PRICE, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<&str>>("type_", Self::VT_TYPE_, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<&str>>("dest", Self::VT_DEST, false)?
-     .visit_field::<i64>("qty_exec", Self::VT_QTY_EXEC, false)?
-     .visit_field::<f64>("price_exec", Self::VT_PRICE_EXEC, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("exec_mkt", Self::VT_EXEC_MKT, false)?
-     .visit_field::<i32>("cum_qty", Self::VT_CUM_QTY, false)?
-     .visit_field::<i32>("qty_leaves", Self::VT_QTY_LEAVES, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("cl_order_id", Self::VT_CL_ORDER_ID, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("cl_order_id_orig", Self::VT_CL_ORDER_ID_ORIG, false)?
+     .visit_field::<i64>("qtyexec", Self::VT_QTYEXEC, false)?
+     .visit_field::<f64>("priceexec", Self::VT_PRICEEXEC, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("execmkt", Self::VT_EXECMKT, false)?
+     .visit_field::<i32>("cumqty", Self::VT_CUMQTY, false)?
+     .visit_field::<i32>("qtyleaves", Self::VT_QTYLEAVES, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("clorderid", Self::VT_CLORDERID, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("clorderidorig", Self::VT_CLORDERIDORIG, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<&str>>("root", Self::VT_ROOT, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<&str>>("exp", Self::VT_EXP, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<&str>>("strike", Self::VT_STRIKE, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("order_cp", Self::VT_ORDER_CP, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("client_id", Self::VT_CLIENT_ID, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("firm_id", Self::VT_FIRM_ID, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("pos_eff", Self::VT_POS_EFF, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("trade_id", Self::VT_TRADE_ID, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("exec_id", Self::VT_EXEC_ID, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("data_source", Self::VT_DATA_SOURCE, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("data_sub_source", Self::VT_DATA_SUB_SOURCE, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("ordercp", Self::VT_ORDERCP, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("clientid", Self::VT_CLIENTID, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("firmid", Self::VT_FIRMID, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("poseff", Self::VT_POSEFF, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("tradeid", Self::VT_TRADEID, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("execid", Self::VT_EXECID, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("datasource", Self::VT_DATASOURCE, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("datasubsource", Self::VT_DATASUBSOURCE, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<&str>>("ext", Self::VT_EXT, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<&str>>("smp", Self::VT_SMP, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<&str>>("moi", Self::VT_MOI, false)?
-     .visit_field::<f64>("stop_price", Self::VT_STOP_PRICE, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("order_text", Self::VT_ORDER_TEXT, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("order_vo", Self::VT_ORDER_VO, false)?
+     .visit_field::<f64>("stopprice", Self::VT_STOPPRICE, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("ordertext", Self::VT_ORDERTEXT, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("ordervo", Self::VT_ORDERVO, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<&str>>("route", Self::VT_ROUTE, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("order_tf", Self::VT_ORDER_TF, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("ordertf", Self::VT_ORDERTF, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<&str>>("issued", Self::VT_ISSUED, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("imid_rpt", Self::VT_IMID_RPT, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("imid_rcv", Self::VT_IMID_RCV, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("imidrpt", Self::VT_IMIDRPT, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("imidrcv", Self::VT_IMIDRCV, false)?
      .visit_field::<bool>("dir", Self::VT_DIR, false)?
      .visit_field::<bool>("held", Self::VT_HELD, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("op_id", Self::VT_OP_ID, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("file_name", Self::VT_FILE_NAME, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("opid", Self::VT_OPID, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("filename", Self::VT_FILENAME, false)?
      .visit_field::<i64>("id", Self::VT_ID, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<&str>>("tif", Self::VT_TIF, false)?
-     .visit_field::<bool>("is_blotter", Self::VT_IS_BLOTTER, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("ext_cl_order_id", Self::VT_EXT_CL_ORDER_ID, false)?
+     .visit_field::<bool>("isblotter", Self::VT_ISBLOTTER, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("extclorderid", Self::VT_EXTCLORDERID, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<&str>>("trader_name", Self::VT_TRADER_NAME, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("created_date", Self::VT_CREATED_DATE, false)?
+     .visit_field::<i64>("created_date", Self::VT_CREATED_DATE, false)?
      .finish();
     Ok(())
   }
 }
-pub struct DailyBlotterLifecycleArgs<'a> {
-    pub order_date: Option<flatbuffers::WIPOffset<&'a str>>,
-    pub order_time: Option<flatbuffers::WIPOffset<&'a str>>,
-    pub account_number: Option<flatbuffers::WIPOffset<&'a str>>,
-    pub account_name: Option<flatbuffers::WIPOffset<&'a str>>,
-    pub trader_id: Option<flatbuffers::WIPOffset<&'a str>>,
+pub struct DailyBlotterArgs<'a> {
+    pub orderdate: i64,
+    pub ordertime: i64,
+    pub accountnumber: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub accountname: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub traderid: Option<flatbuffers::WIPOffset<&'a str>>,
     pub symbol: Option<flatbuffers::WIPOffset<&'a str>>,
-    pub order_cc: Option<flatbuffers::WIPOffset<&'a str>>,
-    pub order_it: Option<flatbuffers::WIPOffset<&'a str>>,
-    pub order_id: Option<flatbuffers::WIPOffset<&'a str>>,
-    pub order_id_seq: Option<flatbuffers::WIPOffset<&'a str>>,
-    pub porder_id: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub ordercc: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub orderit: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub orderid: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub orderidseq: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub porderid: Option<flatbuffers::WIPOffset<&'a str>>,
     pub action: Option<flatbuffers::WIPOffset<&'a str>>,
     pub side: Option<flatbuffers::WIPOffset<&'a str>>,
     pub qty: i64,
-    pub max_floor: i32,
+    pub maxfloor: i32,
     pub price: f64,
     pub type_: Option<flatbuffers::WIPOffset<&'a str>>,
     pub dest: Option<flatbuffers::WIPOffset<&'a str>>,
-    pub qty_exec: i64,
-    pub price_exec: f64,
-    pub exec_mkt: Option<flatbuffers::WIPOffset<&'a str>>,
-    pub cum_qty: i32,
-    pub qty_leaves: i32,
-    pub cl_order_id: Option<flatbuffers::WIPOffset<&'a str>>,
-    pub cl_order_id_orig: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub qtyexec: i64,
+    pub priceexec: f64,
+    pub execmkt: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub cumqty: i32,
+    pub qtyleaves: i32,
+    pub clorderid: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub clorderidorig: Option<flatbuffers::WIPOffset<&'a str>>,
     pub root: Option<flatbuffers::WIPOffset<&'a str>>,
     pub exp: Option<flatbuffers::WIPOffset<&'a str>>,
     pub strike: Option<flatbuffers::WIPOffset<&'a str>>,
-    pub order_cp: Option<flatbuffers::WIPOffset<&'a str>>,
-    pub client_id: Option<flatbuffers::WIPOffset<&'a str>>,
-    pub firm_id: Option<flatbuffers::WIPOffset<&'a str>>,
-    pub pos_eff: Option<flatbuffers::WIPOffset<&'a str>>,
-    pub trade_id: Option<flatbuffers::WIPOffset<&'a str>>,
-    pub exec_id: Option<flatbuffers::WIPOffset<&'a str>>,
-    pub data_source: Option<flatbuffers::WIPOffset<&'a str>>,
-    pub data_sub_source: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub ordercp: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub clientid: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub firmid: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub poseff: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub tradeid: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub execid: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub datasource: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub datasubsource: Option<flatbuffers::WIPOffset<&'a str>>,
     pub ext: Option<flatbuffers::WIPOffset<&'a str>>,
     pub smp: Option<flatbuffers::WIPOffset<&'a str>>,
     pub moi: Option<flatbuffers::WIPOffset<&'a str>>,
-    pub stop_price: f64,
-    pub order_text: Option<flatbuffers::WIPOffset<&'a str>>,
-    pub order_vo: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub stopprice: f64,
+    pub ordertext: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub ordervo: Option<flatbuffers::WIPOffset<&'a str>>,
     pub route: Option<flatbuffers::WIPOffset<&'a str>>,
-    pub order_tf: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub ordertf: Option<flatbuffers::WIPOffset<&'a str>>,
     pub issued: Option<flatbuffers::WIPOffset<&'a str>>,
-    pub imid_rpt: Option<flatbuffers::WIPOffset<&'a str>>,
-    pub imid_rcv: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub imidrpt: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub imidrcv: Option<flatbuffers::WIPOffset<&'a str>>,
     pub dir: bool,
     pub held: bool,
-    pub op_id: Option<flatbuffers::WIPOffset<&'a str>>,
-    pub file_name: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub opid: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub filename: Option<flatbuffers::WIPOffset<&'a str>>,
     pub id: i64,
     pub tif: Option<flatbuffers::WIPOffset<&'a str>>,
-    pub is_blotter: bool,
-    pub ext_cl_order_id: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub isblotter: bool,
+    pub extclorderid: Option<flatbuffers::WIPOffset<&'a str>>,
     pub trader_name: Option<flatbuffers::WIPOffset<&'a str>>,
-    pub created_date: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub created_date: i64,
 }
-impl<'a> Default for DailyBlotterLifecycleArgs<'a> {
+impl<'a> Default for DailyBlotterArgs<'a> {
   #[inline]
   fn default() -> Self {
-    DailyBlotterLifecycleArgs {
-      order_date: None,
-      order_time: None,
-      account_number: None,
-      account_name: None,
-      trader_id: None,
+    DailyBlotterArgs {
+      orderdate: 0,
+      ordertime: 0,
+      accountnumber: None,
+      accountname: None,
+      traderid: None,
       symbol: None,
-      order_cc: None,
-      order_it: None,
-      order_id: None,
-      order_id_seq: None,
-      porder_id: None,
+      ordercc: None,
+      orderit: None,
+      orderid: None,
+      orderidseq: None,
+      porderid: None,
       action: None,
       side: None,
       qty: 0,
-      max_floor: 0,
+      maxfloor: 0,
       price: 0.0,
       type_: None,
       dest: None,
-      qty_exec: 0,
-      price_exec: 0.0,
-      exec_mkt: None,
-      cum_qty: 0,
-      qty_leaves: 0,
-      cl_order_id: None,
-      cl_order_id_orig: None,
+      qtyexec: 0,
+      priceexec: 0.0,
+      execmkt: None,
+      cumqty: 0,
+      qtyleaves: 0,
+      clorderid: None,
+      clorderidorig: None,
       root: None,
       exp: None,
       strike: None,
-      order_cp: None,
-      client_id: None,
-      firm_id: None,
-      pos_eff: None,
-      trade_id: None,
-      exec_id: None,
-      data_source: None,
-      data_sub_source: None,
+      ordercp: None,
+      clientid: None,
+      firmid: None,
+      poseff: None,
+      tradeid: None,
+      execid: None,
+      datasource: None,
+      datasubsource: None,
       ext: None,
       smp: None,
       moi: None,
-      stop_price: 0.0,
-      order_text: None,
-      order_vo: None,
+      stopprice: 0.0,
+      ordertext: None,
+      ordervo: None,
       route: None,
-      order_tf: None,
+      ordertf: None,
       issued: None,
-      imid_rpt: None,
-      imid_rcv: None,
+      imidrpt: None,
+      imidrcv: None,
       dir: false,
       held: false,
-      op_id: None,
-      file_name: None,
+      opid: None,
+      filename: None,
       id: 0,
       tif: None,
-      is_blotter: false,
-      ext_cl_order_id: None,
+      isblotter: false,
+      extclorderid: None,
       trader_name: None,
-      created_date: None,
+      created_date: 0,
     }
   }
 }
 
-pub struct DailyBlotterLifecycleBuilder<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> {
+pub struct DailyBlotterBuilder<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> {
   fbb_: &'b mut flatbuffers::FlatBufferBuilder<'a, A>,
   start_: flatbuffers::WIPOffset<flatbuffers::TableUnfinishedWIPOffset>,
 }
-impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> DailyBlotterLifecycleBuilder<'a, 'b, A> {
+impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> DailyBlotterBuilder<'a, 'b, A> {
   #[inline]
-  pub fn add_order_date(&mut self, order_date: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_ORDER_DATE, order_date);
+  pub fn add_orderdate(&mut self, orderdate: i64) {
+    self.fbb_.push_slot::<i64>(DailyBlotter::VT_ORDERDATE, orderdate, 0);
   }
   #[inline]
-  pub fn add_order_time(&mut self, order_time: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_ORDER_TIME, order_time);
+  pub fn add_ordertime(&mut self, ordertime: i64) {
+    self.fbb_.push_slot::<i64>(DailyBlotter::VT_ORDERTIME, ordertime, 0);
   }
   #[inline]
-  pub fn add_account_number(&mut self, account_number: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_ACCOUNT_NUMBER, account_number);
+  pub fn add_accountnumber(&mut self, accountnumber: flatbuffers::WIPOffset<&'b  str>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_ACCOUNTNUMBER, accountnumber);
   }
   #[inline]
-  pub fn add_account_name(&mut self, account_name: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_ACCOUNT_NAME, account_name);
+  pub fn add_accountname(&mut self, accountname: flatbuffers::WIPOffset<&'b  str>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_ACCOUNTNAME, accountname);
   }
   #[inline]
-  pub fn add_trader_id(&mut self, trader_id: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_TRADER_ID, trader_id);
+  pub fn add_traderid(&mut self, traderid: flatbuffers::WIPOffset<&'b  str>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_TRADERID, traderid);
   }
   #[inline]
   pub fn add_symbol(&mut self, symbol: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_SYMBOL, symbol);
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_SYMBOL, symbol);
   }
   #[inline]
-  pub fn add_order_cc(&mut self, order_cc: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_ORDER_CC, order_cc);
+  pub fn add_ordercc(&mut self, ordercc: flatbuffers::WIPOffset<&'b  str>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_ORDERCC, ordercc);
   }
   #[inline]
-  pub fn add_order_it(&mut self, order_it: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_ORDER_IT, order_it);
+  pub fn add_orderit(&mut self, orderit: flatbuffers::WIPOffset<&'b  str>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_ORDERIT, orderit);
   }
   #[inline]
-  pub fn add_order_id(&mut self, order_id: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_ORDER_ID, order_id);
+  pub fn add_orderid(&mut self, orderid: flatbuffers::WIPOffset<&'b  str>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_ORDERID, orderid);
   }
   #[inline]
-  pub fn add_order_id_seq(&mut self, order_id_seq: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_ORDER_ID_SEQ, order_id_seq);
+  pub fn add_orderidseq(&mut self, orderidseq: flatbuffers::WIPOffset<&'b  str>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_ORDERIDSEQ, orderidseq);
   }
   #[inline]
-  pub fn add_porder_id(&mut self, porder_id: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_PORDER_ID, porder_id);
+  pub fn add_porderid(&mut self, porderid: flatbuffers::WIPOffset<&'b  str>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_PORDERID, porderid);
   }
   #[inline]
   pub fn add_action(&mut self, action: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_ACTION, action);
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_ACTION, action);
   }
   #[inline]
   pub fn add_side(&mut self, side: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_SIDE, side);
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_SIDE, side);
   }
   #[inline]
   pub fn add_qty(&mut self, qty: i64) {
-    self.fbb_.push_slot::<i64>(DailyBlotterLifecycle::VT_QTY, qty, 0);
+    self.fbb_.push_slot::<i64>(DailyBlotter::VT_QTY, qty, 0);
   }
   #[inline]
-  pub fn add_max_floor(&mut self, max_floor: i32) {
-    self.fbb_.push_slot::<i32>(DailyBlotterLifecycle::VT_MAX_FLOOR, max_floor, 0);
+  pub fn add_maxfloor(&mut self, maxfloor: i32) {
+    self.fbb_.push_slot::<i32>(DailyBlotter::VT_MAXFLOOR, maxfloor, 0);
   }
   #[inline]
   pub fn add_price(&mut self, price: f64) {
-    self.fbb_.push_slot::<f64>(DailyBlotterLifecycle::VT_PRICE, price, 0.0);
+    self.fbb_.push_slot::<f64>(DailyBlotter::VT_PRICE, price, 0.0);
   }
   #[inline]
   pub fn add_type_(&mut self, type_: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_TYPE_, type_);
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_TYPE_, type_);
   }
   #[inline]
   pub fn add_dest(&mut self, dest: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_DEST, dest);
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_DEST, dest);
   }
   #[inline]
-  pub fn add_qty_exec(&mut self, qty_exec: i64) {
-    self.fbb_.push_slot::<i64>(DailyBlotterLifecycle::VT_QTY_EXEC, qty_exec, 0);
+  pub fn add_qtyexec(&mut self, qtyexec: i64) {
+    self.fbb_.push_slot::<i64>(DailyBlotter::VT_QTYEXEC, qtyexec, 0);
   }
   #[inline]
-  pub fn add_price_exec(&mut self, price_exec: f64) {
-    self.fbb_.push_slot::<f64>(DailyBlotterLifecycle::VT_PRICE_EXEC, price_exec, 0.0);
+  pub fn add_priceexec(&mut self, priceexec: f64) {
+    self.fbb_.push_slot::<f64>(DailyBlotter::VT_PRICEEXEC, priceexec, 0.0);
   }
   #[inline]
-  pub fn add_exec_mkt(&mut self, exec_mkt: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_EXEC_MKT, exec_mkt);
+  pub fn add_execmkt(&mut self, execmkt: flatbuffers::WIPOffset<&'b  str>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_EXECMKT, execmkt);
   }
   #[inline]
-  pub fn add_cum_qty(&mut self, cum_qty: i32) {
-    self.fbb_.push_slot::<i32>(DailyBlotterLifecycle::VT_CUM_QTY, cum_qty, 0);
+  pub fn add_cumqty(&mut self, cumqty: i32) {
+    self.fbb_.push_slot::<i32>(DailyBlotter::VT_CUMQTY, cumqty, 0);
   }
   #[inline]
-  pub fn add_qty_leaves(&mut self, qty_leaves: i32) {
-    self.fbb_.push_slot::<i32>(DailyBlotterLifecycle::VT_QTY_LEAVES, qty_leaves, 0);
+  pub fn add_qtyleaves(&mut self, qtyleaves: i32) {
+    self.fbb_.push_slot::<i32>(DailyBlotter::VT_QTYLEAVES, qtyleaves, 0);
   }
   #[inline]
-  pub fn add_cl_order_id(&mut self, cl_order_id: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_CL_ORDER_ID, cl_order_id);
+  pub fn add_clorderid(&mut self, clorderid: flatbuffers::WIPOffset<&'b  str>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_CLORDERID, clorderid);
   }
   #[inline]
-  pub fn add_cl_order_id_orig(&mut self, cl_order_id_orig: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_CL_ORDER_ID_ORIG, cl_order_id_orig);
+  pub fn add_clorderidorig(&mut self, clorderidorig: flatbuffers::WIPOffset<&'b  str>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_CLORDERIDORIG, clorderidorig);
   }
   #[inline]
   pub fn add_root(&mut self, root: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_ROOT, root);
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_ROOT, root);
   }
   #[inline]
   pub fn add_exp(&mut self, exp: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_EXP, exp);
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_EXP, exp);
   }
   #[inline]
   pub fn add_strike(&mut self, strike: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_STRIKE, strike);
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_STRIKE, strike);
   }
   #[inline]
-  pub fn add_order_cp(&mut self, order_cp: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_ORDER_CP, order_cp);
+  pub fn add_ordercp(&mut self, ordercp: flatbuffers::WIPOffset<&'b  str>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_ORDERCP, ordercp);
   }
   #[inline]
-  pub fn add_client_id(&mut self, client_id: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_CLIENT_ID, client_id);
+  pub fn add_clientid(&mut self, clientid: flatbuffers::WIPOffset<&'b  str>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_CLIENTID, clientid);
   }
   #[inline]
-  pub fn add_firm_id(&mut self, firm_id: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_FIRM_ID, firm_id);
+  pub fn add_firmid(&mut self, firmid: flatbuffers::WIPOffset<&'b  str>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_FIRMID, firmid);
   }
   #[inline]
-  pub fn add_pos_eff(&mut self, pos_eff: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_POS_EFF, pos_eff);
+  pub fn add_poseff(&mut self, poseff: flatbuffers::WIPOffset<&'b  str>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_POSEFF, poseff);
   }
   #[inline]
-  pub fn add_trade_id(&mut self, trade_id: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_TRADE_ID, trade_id);
+  pub fn add_tradeid(&mut self, tradeid: flatbuffers::WIPOffset<&'b  str>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_TRADEID, tradeid);
   }
   #[inline]
-  pub fn add_exec_id(&mut self, exec_id: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_EXEC_ID, exec_id);
+  pub fn add_execid(&mut self, execid: flatbuffers::WIPOffset<&'b  str>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_EXECID, execid);
   }
   #[inline]
-  pub fn add_data_source(&mut self, data_source: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_DATA_SOURCE, data_source);
+  pub fn add_datasource(&mut self, datasource: flatbuffers::WIPOffset<&'b  str>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_DATASOURCE, datasource);
   }
   #[inline]
-  pub fn add_data_sub_source(&mut self, data_sub_source: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_DATA_SUB_SOURCE, data_sub_source);
+  pub fn add_datasubsource(&mut self, datasubsource: flatbuffers::WIPOffset<&'b  str>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_DATASUBSOURCE, datasubsource);
   }
   #[inline]
   pub fn add_ext(&mut self, ext: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_EXT, ext);
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_EXT, ext);
   }
   #[inline]
   pub fn add_smp(&mut self, smp: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_SMP, smp);
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_SMP, smp);
   }
   #[inline]
   pub fn add_moi(&mut self, moi: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_MOI, moi);
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_MOI, moi);
   }
   #[inline]
-  pub fn add_stop_price(&mut self, stop_price: f64) {
-    self.fbb_.push_slot::<f64>(DailyBlotterLifecycle::VT_STOP_PRICE, stop_price, 0.0);
+  pub fn add_stopprice(&mut self, stopprice: f64) {
+    self.fbb_.push_slot::<f64>(DailyBlotter::VT_STOPPRICE, stopprice, 0.0);
   }
   #[inline]
-  pub fn add_order_text(&mut self, order_text: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_ORDER_TEXT, order_text);
+  pub fn add_ordertext(&mut self, ordertext: flatbuffers::WIPOffset<&'b  str>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_ORDERTEXT, ordertext);
   }
   #[inline]
-  pub fn add_order_vo(&mut self, order_vo: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_ORDER_VO, order_vo);
+  pub fn add_ordervo(&mut self, ordervo: flatbuffers::WIPOffset<&'b  str>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_ORDERVO, ordervo);
   }
   #[inline]
   pub fn add_route(&mut self, route: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_ROUTE, route);
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_ROUTE, route);
   }
   #[inline]
-  pub fn add_order_tf(&mut self, order_tf: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_ORDER_TF, order_tf);
+  pub fn add_ordertf(&mut self, ordertf: flatbuffers::WIPOffset<&'b  str>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_ORDERTF, ordertf);
   }
   #[inline]
   pub fn add_issued(&mut self, issued: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_ISSUED, issued);
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_ISSUED, issued);
   }
   #[inline]
-  pub fn add_imid_rpt(&mut self, imid_rpt: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_IMID_RPT, imid_rpt);
+  pub fn add_imidrpt(&mut self, imidrpt: flatbuffers::WIPOffset<&'b  str>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_IMIDRPT, imidrpt);
   }
   #[inline]
-  pub fn add_imid_rcv(&mut self, imid_rcv: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_IMID_RCV, imid_rcv);
+  pub fn add_imidrcv(&mut self, imidrcv: flatbuffers::WIPOffset<&'b  str>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_IMIDRCV, imidrcv);
   }
   #[inline]
   pub fn add_dir(&mut self, dir: bool) {
-    self.fbb_.push_slot::<bool>(DailyBlotterLifecycle::VT_DIR, dir, false);
+    self.fbb_.push_slot::<bool>(DailyBlotter::VT_DIR, dir, false);
   }
   #[inline]
   pub fn add_held(&mut self, held: bool) {
-    self.fbb_.push_slot::<bool>(DailyBlotterLifecycle::VT_HELD, held, false);
+    self.fbb_.push_slot::<bool>(DailyBlotter::VT_HELD, held, false);
   }
   #[inline]
-  pub fn add_op_id(&mut self, op_id: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_OP_ID, op_id);
+  pub fn add_opid(&mut self, opid: flatbuffers::WIPOffset<&'b  str>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_OPID, opid);
   }
   #[inline]
-  pub fn add_file_name(&mut self, file_name: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_FILE_NAME, file_name);
+  pub fn add_filename(&mut self, filename: flatbuffers::WIPOffset<&'b  str>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_FILENAME, filename);
   }
   #[inline]
   pub fn add_id(&mut self, id: i64) {
-    self.fbb_.push_slot::<i64>(DailyBlotterLifecycle::VT_ID, id, 0);
+    self.fbb_.push_slot::<i64>(DailyBlotter::VT_ID, id, 0);
   }
   #[inline]
   pub fn add_tif(&mut self, tif: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_TIF, tif);
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_TIF, tif);
   }
   #[inline]
-  pub fn add_is_blotter(&mut self, is_blotter: bool) {
-    self.fbb_.push_slot::<bool>(DailyBlotterLifecycle::VT_IS_BLOTTER, is_blotter, false);
+  pub fn add_isblotter(&mut self, isblotter: bool) {
+    self.fbb_.push_slot::<bool>(DailyBlotter::VT_ISBLOTTER, isblotter, false);
   }
   #[inline]
-  pub fn add_ext_cl_order_id(&mut self, ext_cl_order_id: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_EXT_CL_ORDER_ID, ext_cl_order_id);
+  pub fn add_extclorderid(&mut self, extclorderid: flatbuffers::WIPOffset<&'b  str>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_EXTCLORDERID, extclorderid);
   }
   #[inline]
   pub fn add_trader_name(&mut self, trader_name: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_TRADER_NAME, trader_name);
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotter::VT_TRADER_NAME, trader_name);
   }
   #[inline]
-  pub fn add_created_date(&mut self, created_date: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DailyBlotterLifecycle::VT_CREATED_DATE, created_date);
+  pub fn add_created_date(&mut self, created_date: i64) {
+    self.fbb_.push_slot::<i64>(DailyBlotter::VT_CREATED_DATE, created_date, 0);
   }
   #[inline]
-  pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a, A>) -> DailyBlotterLifecycleBuilder<'a, 'b, A> {
+  pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a, A>) -> DailyBlotterBuilder<'a, 'b, A> {
     let start = _fbb.start_table();
-    DailyBlotterLifecycleBuilder {
+    DailyBlotterBuilder {
       fbb_: _fbb,
       start_: start,
     }
   }
   #[inline]
-  pub fn finish(self) -> flatbuffers::WIPOffset<DailyBlotterLifecycle<'a>> {
+  pub fn finish(self) -> flatbuffers::WIPOffset<DailyBlotter<'a>> {
     let o = self.fbb_.end_table(self.start_);
     flatbuffers::WIPOffset::new(o.value())
   }
 }
 
-impl core::fmt::Debug for DailyBlotterLifecycle<'_> {
+impl core::fmt::Debug for DailyBlotter<'_> {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-    let mut ds = f.debug_struct("DailyBlotterLifecycle");
-      ds.field("order_date", &self.order_date());
-      ds.field("order_time", &self.order_time());
-      ds.field("account_number", &self.account_number());
-      ds.field("account_name", &self.account_name());
-      ds.field("trader_id", &self.trader_id());
+    let mut ds = f.debug_struct("DailyBlotter");
+      ds.field("orderdate", &self.orderdate());
+      ds.field("ordertime", &self.ordertime());
+      ds.field("accountnumber", &self.accountnumber());
+      ds.field("accountname", &self.accountname());
+      ds.field("traderid", &self.traderid());
       ds.field("symbol", &self.symbol());
-      ds.field("order_cc", &self.order_cc());
-      ds.field("order_it", &self.order_it());
-      ds.field("order_id", &self.order_id());
-      ds.field("order_id_seq", &self.order_id_seq());
-      ds.field("porder_id", &self.porder_id());
+      ds.field("ordercc", &self.ordercc());
+      ds.field("orderit", &self.orderit());
+      ds.field("orderid", &self.orderid());
+      ds.field("orderidseq", &self.orderidseq());
+      ds.field("porderid", &self.porderid());
       ds.field("action", &self.action());
       ds.field("side", &self.side());
       ds.field("qty", &self.qty());
-      ds.field("max_floor", &self.max_floor());
+      ds.field("maxfloor", &self.maxfloor());
       ds.field("price", &self.price());
       ds.field("type_", &self.type_());
       ds.field("dest", &self.dest());
-      ds.field("qty_exec", &self.qty_exec());
-      ds.field("price_exec", &self.price_exec());
-      ds.field("exec_mkt", &self.exec_mkt());
-      ds.field("cum_qty", &self.cum_qty());
-      ds.field("qty_leaves", &self.qty_leaves());
-      ds.field("cl_order_id", &self.cl_order_id());
-      ds.field("cl_order_id_orig", &self.cl_order_id_orig());
+      ds.field("qtyexec", &self.qtyexec());
+      ds.field("priceexec", &self.priceexec());
+      ds.field("execmkt", &self.execmkt());
+      ds.field("cumqty", &self.cumqty());
+      ds.field("qtyleaves", &self.qtyleaves());
+      ds.field("clorderid", &self.clorderid());
+      ds.field("clorderidorig", &self.clorderidorig());
       ds.field("root", &self.root());
       ds.field("exp", &self.exp());
       ds.field("strike", &self.strike());
-      ds.field("order_cp", &self.order_cp());
-      ds.field("client_id", &self.client_id());
-      ds.field("firm_id", &self.firm_id());
-      ds.field("pos_eff", &self.pos_eff());
-      ds.field("trade_id", &self.trade_id());
-      ds.field("exec_id", &self.exec_id());
-      ds.field("data_source", &self.data_source());
-      ds.field("data_sub_source", &self.data_sub_source());
+      ds.field("ordercp", &self.ordercp());
+      ds.field("clientid", &self.clientid());
+      ds.field("firmid", &self.firmid());
+      ds.field("poseff", &self.poseff());
+      ds.field("tradeid", &self.tradeid());
+      ds.field("execid", &self.execid());
+      ds.field("datasource", &self.datasource());
+      ds.field("datasubsource", &self.datasubsource());
       ds.field("ext", &self.ext());
       ds.field("smp", &self.smp());
       ds.field("moi", &self.moi());
-      ds.field("stop_price", &self.stop_price());
-      ds.field("order_text", &self.order_text());
-      ds.field("order_vo", &self.order_vo());
+      ds.field("stopprice", &self.stopprice());
+      ds.field("ordertext", &self.ordertext());
+      ds.field("ordervo", &self.ordervo());
       ds.field("route", &self.route());
-      ds.field("order_tf", &self.order_tf());
+      ds.field("ordertf", &self.ordertf());
       ds.field("issued", &self.issued());
-      ds.field("imid_rpt", &self.imid_rpt());
-      ds.field("imid_rcv", &self.imid_rcv());
+      ds.field("imidrpt", &self.imidrpt());
+      ds.field("imidrcv", &self.imidrcv());
       ds.field("dir", &self.dir());
       ds.field("held", &self.held());
-      ds.field("op_id", &self.op_id());
-      ds.field("file_name", &self.file_name());
+      ds.field("opid", &self.opid());
+      ds.field("filename", &self.filename());
       ds.field("id", &self.id());
       ds.field("tif", &self.tif());
-      ds.field("is_blotter", &self.is_blotter());
-      ds.field("ext_cl_order_id", &self.ext_cl_order_id());
+      ds.field("isblotter", &self.isblotter());
+      ds.field("extclorderid", &self.extclorderid());
       ds.field("trader_name", &self.trader_name());
       ds.field("created_date", &self.created_date());
       ds.finish()
   }
 }
-#[inline]
-/// Verifies that a buffer of bytes contains a `DailyBlotterLifecycle`
-/// and returns it.
-/// Note that verification is still experimental and may not
-/// catch every error, or be maximally performant. For the
-/// previous, unchecked, behavior use
-/// `root_as_daily_blotter_lifecycle_unchecked`.
-pub fn root_as_daily_blotter_lifecycle(buf: &[u8]) -> Result<DailyBlotterLifecycle, flatbuffers::InvalidFlatbuffer> {
-  flatbuffers::root::<DailyBlotterLifecycle>(buf)
-}
-#[inline]
-/// Verifies that a buffer of bytes contains a size prefixed
-/// `DailyBlotterLifecycle` and returns it.
-/// Note that verification is still experimental and may not
-/// catch every error, or be maximally performant. For the
-/// previous, unchecked, behavior use
-/// `size_prefixed_root_as_daily_blotter_lifecycle_unchecked`.
-pub fn size_prefixed_root_as_daily_blotter_lifecycle(buf: &[u8]) -> Result<DailyBlotterLifecycle, flatbuffers::InvalidFlatbuffer> {
-  flatbuffers::size_prefixed_root::<DailyBlotterLifecycle>(buf)
-}
-#[inline]
-/// Verifies, with the given options, that a buffer of bytes
-/// contains a `DailyBlotterLifecycle` and returns it.
-/// Note that verification is still experimental and may not
-/// catch every error, or be maximally performant. For the
-/// previous, unchecked, behavior use
-/// `root_as_daily_blotter_lifecycle_unchecked`.
-pub fn root_as_daily_blotter_lifecycle_with_opts<'b, 'o>(
-  opts: &'o flatbuffers::VerifierOptions,
-  buf: &'b [u8],
-) -> Result<DailyBlotterLifecycle<'b>, flatbuffers::InvalidFlatbuffer> {
-  flatbuffers::root_with_opts::<DailyBlotterLifecycle<'b>>(opts, buf)
-}
-#[inline]
-/// Verifies, with the given verifier options, that a buffer of
-/// bytes contains a size prefixed `DailyBlotterLifecycle` and returns
-/// it. Note that verification is still experimental and may not
-/// catch every error, or be maximally performant. For the
-/// previous, unchecked, behavior use
-/// `root_as_daily_blotter_lifecycle_unchecked`.
-pub fn size_prefixed_root_as_daily_blotter_lifecycle_with_opts<'b, 'o>(
-  opts: &'o flatbuffers::VerifierOptions,
-  buf: &'b [u8],
-) -> Result<DailyBlotterLifecycle<'b>, flatbuffers::InvalidFlatbuffer> {
-  flatbuffers::size_prefixed_root_with_opts::<DailyBlotterLifecycle<'b>>(opts, buf)
-}
-#[inline]
-/// Assumes, without verification, that a buffer of bytes contains a DailyBlotterLifecycle and returns it.
-/// # Safety
-/// Callers must trust the given bytes do indeed contain a valid `DailyBlotterLifecycle`.
-pub unsafe fn root_as_daily_blotter_lifecycle_unchecked(buf: &[u8]) -> DailyBlotterLifecycle {
-  flatbuffers::root_unchecked::<DailyBlotterLifecycle>(buf)
-}
-#[inline]
-/// Assumes, without verification, that a buffer of bytes contains a size prefixed DailyBlotterLifecycle and returns it.
-/// # Safety
-/// Callers must trust the given bytes do indeed contain a valid size prefixed `DailyBlotterLifecycle`.
-pub unsafe fn size_prefixed_root_as_daily_blotter_lifecycle_unchecked(buf: &[u8]) -> DailyBlotterLifecycle {
-  flatbuffers::size_prefixed_root_unchecked::<DailyBlotterLifecycle>(buf)
-}
-#[inline]
-pub fn finish_daily_blotter_lifecycle_buffer<'a, 'b, A: flatbuffers::Allocator + 'a>(
-    fbb: &'b mut flatbuffers::FlatBufferBuilder<'a, A>,
-    root: flatbuffers::WIPOffset<DailyBlotterLifecycle<'a>>) {
-  fbb.finish(root, None);
-}
-
-#[inline]
-pub fn finish_size_prefixed_daily_blotter_lifecycle_buffer<'a, 'b, A: flatbuffers::Allocator + 'a>(fbb: &'b mut flatbuffers::FlatBufferBuilder<'a, A>, root: flatbuffers::WIPOffset<DailyBlotterLifecycle<'a>>) {
-  fbb.finish_size_prefixed(root, None);
-}
-}  // pub mod Order
+}  // pub mod DailyBlotterLifeCycle
 
