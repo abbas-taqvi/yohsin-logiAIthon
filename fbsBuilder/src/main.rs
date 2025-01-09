@@ -54,9 +54,8 @@ fn main() -> std::io::Result<()> {
     Ok(())
 }
 
-// Maps some common Rust types to standard FlatBuffers types.
-// Extend this as needed (e.g., bool, arrays, Option<T>, Vec<T>, etc.).
-fn map_rust_type_to_fbs(rust_type: &str) -> String {
+// Make the function public so that it's accessible for testing
+pub fn map_rust_type_to_fbs(rust_type: &str) -> String {
     match rust_type {
         "i32"    => "int32".to_string(),
         "i64"    => "int64".to_string(),
@@ -68,16 +67,6 @@ fn map_rust_type_to_fbs(rust_type: &str) -> String {
 }
 
 // Generate a FlatBuffers schema for a single struct.
-// Example output:
-//
-//   table User {
-//     id: int32;
-//     name: string;
-//     email: string;
-//   }
-//
-//   root_type User;
-//
 fn generate_fbs_schema(struct_name: &str, fields: &[(String, String)]) -> String {
     let mut schema = format!("table {} {{\n", struct_name);
     for (field_name, field_type) in fields {
@@ -87,4 +76,58 @@ fn generate_fbs_schema(struct_name: &str, fields: &[(String, String)]) -> String
     schema.push_str("}\n\n");
     schema.push_str(&format!("root_type {};\n", struct_name));
     schema
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    // Test case for mapping Rust types to FlatBuffers types
+    #[test]
+    fn test_map_rust_type_to_fbs() {
+        assert_eq!(map_rust_type_to_fbs("i32"), "int32");
+        assert_eq!(map_rust_type_to_fbs("i64"), "int64");
+        assert_eq!(map_rust_type_to_fbs("f32"), "float");
+        assert_eq!(map_rust_type_to_fbs("f64"), "double");
+        assert_eq!(map_rust_type_to_fbs("String"), "string");
+        assert_eq!(map_rust_type_to_fbs("UnknownType"), "Unknown_UnknownType");
+    }
+
+
+    // Test case for generating a FlatBuffers schema
+    #[test]
+    fn test_generate_fbs_schema() {
+        let fields = vec![
+            ("id".to_string(), "int32".to_string()),
+            ("name".to_string(), "string".to_string()),
+            ("email".to_string(), "string".to_string()),
+        ];
+
+        let expected_schema = "table User {\n  id: int32;\n  name: string;\n  email: string;\n}\n\nroot_type User;\n";
+        let schema = generate_fbs_schema("User", &fields);
+        assert_eq!(schema, expected_schema);
+    }
+
+    #[test]
+    fn test_write_fbs_schema() {
+        let output_folder = "createdFbs";
+        fs::create_dir_all(output_folder).unwrap();
+
+        let fields = vec![
+            ("id".to_string(), "int32".to_string()),
+            ("name".to_string(), "string".to_string()),
+            ("email".to_string(), "string".to_string()),
+        ];
+
+        let fbs_schema = generate_fbs_schema("User", &fields);
+        let output_file = format!("{}/{}.fbs", output_folder, "User");
+
+        let mut file = fs::File::create(&output_file).unwrap();
+        file.write_all(fbs_schema.as_bytes()).unwrap();
+
+        // Verify file is created
+        assert!(fs::metadata(output_file).is_ok());
+    }
+
+    // You can add more tests here as needed
 }
