@@ -1,4 +1,4 @@
-# Project: Daily Blotter Data Serialization and Deserialization
+# Project: High-Performance Data Serialization and Deserialization and Persistent Storage
 
 ## Objective
 
