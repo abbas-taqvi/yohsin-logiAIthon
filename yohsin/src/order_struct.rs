@@ -64,6 +64,25 @@ pub struct DailyBlotterData {
 }
 
 impl DailyBlotterData {
+    pub fn from_bytes(bytes: &[u8]) -> Result<Self, Box<dyn std::error::Error>> {
+        if bytes.len() != std::mem::size_of::<Self>() {
+            return Err("Invalid byte length for DailyBlotterData".into());
+        }
+
+        // Use MaybeUninit to avoid undefined behavior
+        let mut record = std::mem::MaybeUninit::<Self>::uninit();
+
+        unsafe {
+            std::ptr::copy_nonoverlapping(
+                bytes.as_ptr(),
+                record.as_mut_ptr() as *mut u8,
+                std::mem::size_of::<Self>(),
+            );
+
+            // Assume the initialization is done and return the object
+            Ok(record.assume_init())
+        }
+    }
     /// Load data from a file into a vector of DailyBlotterData structs
     pub fn load_from_file(file_path: &str) -> Result<Vec<Self>, Box<dyn std::error::Error>> {
         let file = File::open(file_path)?;
