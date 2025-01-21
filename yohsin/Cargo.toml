@@ -5,3 +5,4 @@ edition = "2021"
 
 [dependencies]
 tokio = { version = "1.43.0", features = ["full"] }
+rayon = "1.9.0"

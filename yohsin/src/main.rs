@@ -1,12 +1,14 @@
 use std::sync::Arc;
 use std::time::Instant;
 use tokio::fs::File;
-use tokio::io::{AsyncReadExt, AsyncWriteExt, BufReader, BufWriter};
+use tokio::io::{AsyncReadExt, AsyncSeekExt, AsyncWriteExt, BufReader, BufWriter};
 use tokio::sync::Mutex;
 use yohsin::order_struct::DailyBlotterData;
 
-#[tokio::main]
+// Use multi-threaded runtime
+#[tokio::main(flavor = "multi_thread", worker_threads = 8)]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    // Load data
     let original_data = DailyBlotterData::load_from_file("../data_baker/data/dummy_data_6.csv")?;
     let start = Instant::now();
 
@@ -14,23 +16,15 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let n_objects = original_data.len();
     let data_size = n_objects * object_size;
 
-    let data_bytes: Arc<[u8]> = Arc::from(
-        unsafe { std::slice::from_raw_parts(original_data.as_ptr() as *const u8, data_size) }
-            .to_vec(),
-    );
+    // Use Arc to share data without cloning
+    let data_bytes: Arc<[u8]> = Arc::from(unsafe {
+        std::slice::from_raw_parts(original_data.as_ptr() as *const u8, data_size)
+    });
 
-    // Open a shared file for writing
+    // Open a file for writing
     let file = File::create("dump").await?;
     let writer = BufWriter::new(file);
-    let shared_writer: Arc<Mutex<BufWriter<File>>> = Arc::new(Mutex::new(writer));
-
-    // Create a lookup table (offsets for each record)
-    let mut lookup_table = Vec::new();
-    let mut offset = 0;
-    for _ in 0..n_objects {
-        lookup_table.push(offset);
-        offset += object_size;
-    }
+    let shared_writer = Arc::new(Mutex::new(writer));
 
     // Write the number of records to the file
     shared_writer
@@ -39,31 +33,34 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .write_all(&(n_objects as u64).to_le_bytes())
         .await?;
 
-    // Write the lookup table to the file
-    for &off in &lookup_table {
-        shared_writer
-            .lock()
-            .await
-            .write_all(&off.to_le_bytes())
-            .await?;
-    }
+    // Calculate the number of threads to use
+    let num_threads = std::thread::available_parallelism()?.get();
+    let chunk_size = (n_objects + num_threads - 1) / num_threads; // Divide work evenly
 
-    // Spawn one task per object
+    // Spawn tasks for parallel writing
     let mut handles = Vec::new();
-    for i in 0..n_objects {
-        let shared_writer = Arc::clone(&shared_writer);
+    for thread_id in 0..num_threads {
         let data_bytes = Arc::clone(&data_bytes);
 
-        // Spawn a task to write this object's data to the file
+        // Calculate the start and end indices for this thread's chunk
+        let start_idx = thread_id * chunk_size * object_size;
+        let end_idx = std::cmp::min(start_idx + chunk_size * object_size, data_size);
+
+        // Calculate the file offset for this thread's chunk
+        let file_offset = 8 + start_idx; // 8 bytes for the number of records
+
+        // Spawn a Tokio task to write this chunk's data to the file
         let handle = tokio::spawn(async move {
-            let start_idx = i * object_size;
-            let end_idx = start_idx + object_size;
             let data_slice = &data_bytes[start_idx..end_idx];
 
-            // Lock the shared writer and write the data
-            let mut writer = shared_writer.lock().await;
-            writer.write_all(data_slice).await?;
-            Ok::<(), std::io::Error>(())
+            // Open the file for writing
+            let mut file = File::create("dump").await.unwrap();
+            file.seek(std::io::SeekFrom::Start(file_offset as u64))
+                .await
+                .unwrap();
+
+            // Write the data to the correct position
+            file.write_all(data_slice).await.unwrap();
         });
 
         handles.push(handle);
@@ -71,7 +68,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // Wait for all tasks to complete
     for handle in handles {
-        handle.await??;
+        handle.await?;
     }
 
     // Ensure all data is flushed to the file
@@ -79,8 +76,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     writer.flush().await?;
 
     // Calculate elapsed time
-    let elapsed = start.elapsed();
-    println!("Time elapsed: {:?}", elapsed);
+    println!("Time elapsed (serialize+dump) : {:?}", start.elapsed());
 
     println!("Binary data successfully written to 'dump' file.");
 
@@ -94,15 +90,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     file.read_exact(&mut num_records_bytes).await?;
     let num_records = u64::from_le_bytes(num_records_bytes) as usize;
 
-    // Read the lookup table (offsets)
-    let mut lookup_table = Vec::with_capacity(num_records);
-    for _ in 0..num_records {
-        let mut offset_bytes = [0u8; std::mem::size_of::<usize>()];
-        file.read_exact(&mut offset_bytes).await?;
-        let offset = usize::from_le_bytes(offset_bytes);
-        lookup_table.push(offset);
-    }
-
     // Read the binary data into a buffer
     let mut binary_data = Vec::new();
     file.read_to_end(&mut binary_data).await?;
@@ -112,7 +99,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // Reconstruct the Vec<DailyBlotterData>
     let mut retrieved_data = Vec::with_capacity(num_records);
-    for &offset in &lookup_table {
+    for i in 0..num_records {
+        let offset = i * object_size;
         if offset + object_size > binary_data.len() {
             panic!(
                 "Invalid offset: {} (binary data length: {})",
@@ -127,15 +115,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         retrieved_data.push((*record).clone()); // Clone the record to get an owned value
     }
 
-    // Sort the retrieved data by a unique field (e.g., `id`)
-    retrieved_data.sort_by_key(|record| record.id);
-
-    // Sort the original data by the same unique field
-    let mut sorted_original_data = original_data.clone();
-    sorted_original_data.sort_by_key(|record| record.id);
-
     // Compare the sorted original and retrieved data
-    if sorted_original_data == retrieved_data {
+    if original_data == retrieved_data {
         println!("The original and retrieved data are the same.");
     } else {
         println!("The original and retrieved data are NOT the same.");
@@ -143,13 +124,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // Debug: Compare the first few sorted original and retrieved records
     for i in 0..10 {
-        if sorted_original_data[i] != retrieved_data[i] {
+        if original_data[i] != retrieved_data[i] {
             println!("Mismatch at index {}:", i);
-            println!("Original: {:?}", sorted_original_data[i]);
+            println!("Original: {:?}", original_data[i]);
             println!("Retrieved: {:?}", retrieved_data[i]);
         }
     }
 
     Ok(())
 }
-

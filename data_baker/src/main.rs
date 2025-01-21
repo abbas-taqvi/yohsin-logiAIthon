@@ -1,9 +1,9 @@
+use chrono::{Local, Utc};
+use indicatif::{ProgressBar, ProgressStyle};
 use rand::{distributions::Alphanumeric, Rng};
 use std::{fs::File, io::Write};
-use chrono::{Utc, Local};
-use indicatif::{ProgressBar, ProgressStyle};
 
-const NUM_RECORDS: usize = 3_500_00; // Adjusted to approximately 2.25GB
+const NUM_RECORDS: usize = 4_000_000; // Adjusted to approximately 2.25GB
 
 fn random_string(len: usize) -> String {
     rand::thread_rng()
@@ -23,7 +23,9 @@ fn generate_dummy_data(file_path: &str) -> std::io::Result<()> {
     let pb = ProgressBar::new(NUM_RECORDS as u64);
     pb.set_style(
         ProgressStyle::default_bar()
-            .template("{spinner:.green} [{elapsed_precise}] [{wide_bar:.cyan/blue}] {pos}/{len} ({eta})")
+            .template(
+                "{spinner:.green} [{elapsed_precise}] [{wide_bar:.cyan/blue}] {pos}/{len} ({eta})",
+            )
             .unwrap()
             .progress_chars("#>-"),
     );
