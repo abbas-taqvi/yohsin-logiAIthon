@@ -3,7 +3,7 @@ use indicatif::{ProgressBar, ProgressStyle};
 use rand::{distributions::Alphanumeric, Rng};
 use std::{fs::File, io::Write};
 
-const NUM_RECORDS: usize = 4_000_000; // Adjusted to approximately 2.25GB
+const NUM_RECORDS: usize = 1_250_000; // Adjusted to approximately 2.25GB
 
 fn random_string(len: usize) -> String {
     rand::thread_rng()
@@ -40,15 +40,15 @@ fn generate_dummy_data(file_path: &str) -> std::io::Result<()> {
             "{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{:.2},{},{},{},{:.2},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}",
             epoch_seconds,                                     // orderdate_epoch
             local_epoch_seconds,                              // ordertime_epoch
-            random_string(10),                                // accountnumber
-            random_string(10),                                // accountname
-            random_string(10),                                // traderid
-            random_string(5),                                 // symbol
-            random_string(3),                                 // ordercc
-            random_string(3),                                 // orderit
-            random_string(12),                                // orderid
-            random_string(12),                                // orderidseq
-            random_string(12),                                // porderid
+            random_string(50),                                // accountnumber
+            random_string(50),                                // accountname
+            random_string(50),                                // traderid
+            random_string(55),                                 // symbol
+            random_string(53),                                 // ordercc
+            random_string(53),                                 // orderit
+            random_string(52),                                // orderid
+            random_string(52),                                // orderidseq
+            random_string(52),                                // porderid
             "BUY",                                           // action
             "SELL",                                          // side
             rand::thread_rng().gen_range(1..=10_000),         // qty
@@ -58,42 +58,42 @@ fn generate_dummy_data(file_path: &str) -> std::io::Result<()> {
             "NYSE",                                          // dest
             rand::thread_rng().gen_range(1..=10_000),         // qtyexec
             rand::thread_rng().gen_range(1.0..=100.0),        // priceexec
-            random_string(5),                                 // execmkt
+            random_string(55),                                 // execmkt
             rand::thread_rng().gen_range(1..=10_000),         // cumqty
             rand::thread_rng().gen_range(1..=10_000),         // qtyleaves
-            random_string(15),                                // clorderid
-            random_string(15),                                // clorderidorig
-            random_string(5),                                 // root
+            random_string(55),                                // clorderid
+            random_string(55),                                // clorderidorig
+            random_string(55),                                 // root
             "2025-01",                                      // exp
             "50",                                           // strike
-            random_string(5),                                 // ordercp
-            random_string(10),                                // clientid
-            random_string(10),                                // firmid
+            random_string(55),                                 // ordercp
+            random_string(50),                                // clientid
+            random_string(50),                                // firmid
             "POS",                                          // poseff
-            random_string(10),                                // tradeid
-            random_string(10),                                // execid
+            random_string(50),                                // tradeid
+            random_string(50),                                // execid
             "DATA_SOURCE",                                  // datasource
             "SUBSOURCE",                                    // datasubsource
-            random_string(5),                                 // ext
-            random_string(5),                                 // smp
-            random_string(5),                                 // moi
+            random_string(55),                                 // ext
+            random_string(55),                                 // smp
+            random_string(55),                                 // moi
             rand::thread_rng().gen_range(1.0..=100.0),        // stopprice
             random_string(50),                                // ordertext
-            random_string(5),                                 // ordervo
+            random_string(55),                                 // ordervo
             "ROUTE",                                        // route
-            random_string(5),                                 // ordertf
-            random_string(10),                                // issued
-            random_string(10),                                // imidrpt
-            random_string(10),                                // imidrcv
+            random_string(55),                                 // ordertf
+            random_string(50),                                // issued
+            random_string(50),                                // imidrpt
+            random_string(50),                                // imidrcv
             rand::thread_rng().gen_bool(0.5),                 // dir
             rand::thread_rng().gen_bool(0.5),                 // held
-            random_string(10),                                // opid
-            random_string(10),                                // filename
+            random_string(50),                                // opid
+            random_string(50),                                // filename
             id,                                              // id
             "GTC",                                          // tif
             rand::thread_rng().gen_bool(0.5),                 // isblotter
-            random_string(12),                                // extclorderid
-            random_string(10),                                // trader_name
+            random_string(52),                                // extclorderid
+            random_string(50),                                // trader_name
             epoch_seconds                                     // created_date_epoch
         );
 
@@ -108,7 +108,7 @@ fn generate_dummy_data(file_path: &str) -> std::io::Result<()> {
 }
 
 fn main() {
-    let file_path = "data/dummy_data_6.csv";
+    let file_path = "data/dummy_data_5.csv";
 
     match generate_dummy_data(file_path) {
         Ok(_) => println!("Dummy data successfully written to {}", file_path),

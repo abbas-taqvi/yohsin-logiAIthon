@@ -1,5 +1,5 @@
 use std::fs::File;
-use std::io::{BufRead, BufReader};
+use std::io::{BufRead, BufReader, BufWriter, Write};
 use std::str::FromStr;
 
 #[derive(Debug, PartialEq, Clone)]
@@ -160,5 +160,85 @@ impl DailyBlotterData {
         }
 
         Ok(data_list)
+    }
+
+    pub fn write_to_file(file_path: &str, data: &[Self]) -> Result<(), Box<dyn std::error::Error>> {
+        let file = File::create(file_path)?;
+        let mut writer = BufWriter::new(file);
+
+        // Write the CSV header
+        writeln!(
+            writer,
+            "orderdate,ordertime,accountnumber,accountname,traderid,symbol,ordercc,orderit,orderid,orderidseq,porderid,action,side,qty,maxfloor,price,type_,dest,qtyexec,priceexec,execmkt,cumqty,qtyleaves,clorderid,clorderidorig,root,exp,strike,ordercp,clientid,firmid,poseff,tradeid,execid,datasource,datasubsource,ext,smp,moi,stopprice,ordertext,ordervo,route,ordertf,issued,imidrpt,imidrcv,dir,held,opid,filename,id,tif,isblotter,extclorderid,trader_name,created_date"
+        )?;
+
+        // Write each record as a CSV line
+        for record in data {
+            writeln!(
+                writer,
+                "{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}",
+                record.orderdate,
+                record.ordertime,
+                record.accountnumber,
+                record.accountname,
+                record.traderid,
+                record.symbol,
+                record.ordercc,
+                record.orderit,
+                record.orderid,
+                record.orderidseq,
+                record.porderid,
+                record.action,
+                record.side,
+                record.qty,
+                record.maxfloor,
+                record.price,
+                record.type_,
+                record.dest,
+                record.qtyexec,
+                record.priceexec,
+                record.execmkt,
+                record.cumqty,
+                record.qtyleaves,
+                record.clorderid,
+                record.clorderidorig,
+                record.root,
+                record.exp,
+                record.strike,
+                record.ordercp,
+                record.clientid,
+                record.firmid,
+                record.poseff,
+                record.tradeid,
+                record.execid,
+                record.datasource,
+                record.datasubsource,
+                record.ext,
+                record.smp,
+                record.moi,
+                record.stopprice,
+                record.ordertext,
+                record.ordervo,
+                record.route,
+                record.ordertf,
+                record.issued,
+                record.imidrpt,
+                record.imidrcv,
+                record.dir,
+                record.held,
+                record.opid,
+                record.filename,
+                record.id,
+                record.tif,
+                record.isblotter,
+                record.extclorderid,
+                record.trader_name,
+                record.created_date
+            )?;
+        }
+
+        // Ensure all data is flushed to the file
+        writer.flush()?;
+        Ok(())
     }
 }

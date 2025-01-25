@@ -1,3 +1,5 @@
+#![allow(unused_variables)]
+
 use std::sync::Arc;
 use std::time::Instant;
 use tokio::fs::File;
@@ -9,16 +11,31 @@ use yohsin::order_struct::DailyBlotterData;
 #[tokio::main(flavor = "multi_thread", worker_threads = 8)]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Load data
-    let original_data = DailyBlotterData::load_from_file("../data_baker/data/dummy_data_6.csv")?;
+    let original_data = DailyBlotterData::load_from_file("../data_baker/data/dummy_data_5.csv")?;
     let start = Instant::now();
 
+    let memo_file = "memo.txt";
+    let memo_content = tokio::fs::read_to_string(memo_file)
+        .await
+        .unwrap_or_default();
+
+    // Infer the last written index from the memo file
+    let last_written_idx: usize = memo_content.trim().parse().unwrap_or(0); // Default to 0 if memo file is empty or invalid
+
+    // Calculate the number of objects to process
+    let n_objects = original_data.len() - last_written_idx;
     let object_size = std::mem::size_of::<DailyBlotterData>();
-    let n_objects = original_data.len();
     let data_size = n_objects * object_size;
 
-    // Use Arc to share data without cloning
+    // Calculate the offset for the remaining data
+    let offset = last_written_idx * object_size;
+
+    // Use Arc to share data without cloning (only for the remaining data)
     let data_bytes: Arc<[u8]> = Arc::from(unsafe {
-        std::slice::from_raw_parts(original_data.as_ptr() as *const u8, data_size)
+        std::slice::from_raw_parts(
+            original_data.as_ptr().add(last_written_idx) as *const u8,
+            data_size,
+        )
     });
 
     // Open a file for writing
@@ -41,13 +58,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut handles = Vec::new();
     for thread_id in 0..num_threads {
         let data_bytes = Arc::clone(&data_bytes);
+        let shared_writer = Arc::clone(&shared_writer);
 
         // Calculate the start and end indices for this thread's chunk
         let start_idx = thread_id * chunk_size * object_size;
         let end_idx = std::cmp::min(start_idx + chunk_size * object_size, data_size);
 
         // Calculate the file offset for this thread's chunk
-        let file_offset = 8 + start_idx; // 8 bytes for the number of records
+        let file_offset = 8 + offset + start_idx; // 8 bytes for the number of records
 
         // Spawn a Tokio task to write this chunk's data to the file
         let handle = tokio::spawn(async move {
@@ -61,6 +79,17 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
             // Write the data to the correct position
             file.write_all(data_slice).await.unwrap();
+
+            // Update the memo file to mark this chunk as completed
+            let mut memo_file = File::create("memo.txt").await.unwrap();
+            memo_file
+                .write_all(
+                    (last_written_idx + (end_idx / object_size))
+                        .to_string()
+                        .as_bytes(),
+                )
+                .await
+                .unwrap();
         });
 
         handles.push(handle);
@@ -71,14 +100,15 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         handle.await?;
     }
 
+    // Clear the memo file after all threads have completed
+    tokio::fs::write(memo_file, "").await?;
+
     // Ensure all data is flushed to the file
     let mut writer = shared_writer.lock().await;
     writer.flush().await?;
 
     // Calculate elapsed time
     println!("Time elapsed (serialize+dump) : {:?}", start.elapsed());
-
-    println!("Binary data successfully written to 'dump' file.");
 
     // --- Retrieve:
     // Open the file for reading
@@ -115,20 +145,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         retrieved_data.push((*record).clone()); // Clone the record to get an owned value
     }
 
+    // Write the retrieved data to a CSV file for verification
+    DailyBlotterData::write_to_file("../data_baker/data/written_file_5.csv", &retrieved_data)?;
+
     // Compare the sorted original and retrieved data
     if original_data == retrieved_data {
         println!("The original and retrieved data are the same.");
     } else {
         println!("The original and retrieved data are NOT the same.");
-    }
-
-    // Debug: Compare the first few sorted original and retrieved records
-    for i in 0..10 {
-        if original_data[i] != retrieved_data[i] {
-            println!("Mismatch at index {}:", i);
-            println!("Original: {:?}", original_data[i]);
-            println!("Retrieved: {:?}", retrieved_data[i]);
-        }
     }
 
     Ok(())
