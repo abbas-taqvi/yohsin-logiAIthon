@@ -1,6 +1,7 @@
 use std::fs::File;
 use std::io::{BufRead, BufReader, BufWriter, Write};
 use std::str::FromStr;
+use std::sync::Arc;
 
 #[derive(Debug, PartialEq, Clone)]
 pub struct DailyBlotterData {
@@ -83,12 +84,16 @@ impl DailyBlotterData {
             Ok(record.assume_init())
         }
     }
+
     /// Load data from a file into a vector of DailyBlotterData structs
-    pub fn load_from_file(file_path: &str) -> Result<Vec<Self>, Box<dyn std::error::Error>> {
+
+    pub fn load_from_file(
+        file_path: &str,
+    ) -> Result<Arc<[DailyBlotterData]>, Box<dyn std::error::Error>> {
         let file = File::open(file_path)?;
         let reader = BufReader::new(file);
 
-        let mut data_list = Vec::new(); // Vector to store all DailyBlotterData structs
+        let mut data_list = Vec::new(); // Temporary vector to collect data
 
         for line in reader.lines().skip(1) {
             let line = line?;
@@ -159,7 +164,8 @@ impl DailyBlotterData {
             data_list.push(data);
         }
 
-        Ok(data_list)
+        // Convert the Vec<DailyBlotterData> into Arc<[DailyBlotterData]>
+        Ok(Arc::from(data_list))
     }
 
     pub fn write_to_file(file_path: &str, data: &[Self]) -> Result<(), Box<dyn std::error::Error>> {
