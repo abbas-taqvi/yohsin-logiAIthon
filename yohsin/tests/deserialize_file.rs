@@ -5,7 +5,7 @@ use yohsin::serialize::{deserialize_from_file, serialize_to_file};
 #[tokio::test]
 async fn test_serialize_deserialize() -> Result<(), Box<dyn std::error::Error>> {
     // Load the dummy data
-    let original_data = DailyBlotterData::load_from_file("../data_baker/data/dummy_data_5.csv")?;
+    let original_data = DailyBlotterData::load_from_file("../data_baker/data/data-file.csv")?;
 
     // Serialize the data to a file
     let file_path = Arc::new("test_dump.bin".to_string());
