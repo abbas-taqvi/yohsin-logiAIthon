@@ -2,107 +2,78 @@
 
 ## Objective
 
-To efficiently serialize `DailyBlotterData` records into binary format and deserialize them back while preserving data integrity. This ensures data storage and retrieval efficiency in a high-performance environment.
+To efficiently serialize records of any type `T` into binary format and deserialize them back while preserving data integrity with functionality of range deserialization, fault-tolerance and zero-copy serialization. This ensures data storage and retrieval efficiency in a high-performance environment with no waste of resources.
+
+## How to run and test
+
+Install the cargo utility:
+```rs
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+restart the shell or source the config file (.bashrc/.zshrc etc.)
+
+Now for running the project:
+```rs
+cd yohsin
+cargo run --release
+```
+
+For running the tests
+```rs
+cd yohsin
+cargo test
+```
 
 ## Modules Overview
 
 ### 1. `main.rs`
-
-#### Purpose:
 - Acts as the **entry point**.
 - Handles the **timing** and overall execution flow for data serialization and deserialization.
 
-#### Key Steps:
-1. Load `DailyBlotterData` from a CSV file.
-2. Serialize the data into binary format, including a **lookup table** for quick access.
-3. Calculate the byte offsets of object instances.
-4. Write serialization data from byte computation to a file.
-5. Deserialize the data from the binary file.
-6. Validate the integrity of the deserialized data against the original.
+---
+
+### 2. `serialize.rs`
+
+- Contains the core logic for serialization and deserialization.
+- Implements zero-copy serialization for efficient memory usage.
+- Provides fault-tolerant serialization using a memo file to track progress.
+- Supports range-based deserialization for efficient retrieval of specific data segments.
 
 ---
 
-### 2. `lib.rs`
-
-#### Purpose:
+### 3. `lib.rs`
 - Houses **modular components** of the project.
 
-#### Structure:
-- Includes submodules:
-  1. `order_generated`: Automatically generated code for FlatBuffer support.
-  2. `order_struct`: Defines the `DailyBlotterData` structure and associated methods.
-
 ---
 
-### 3. `order_struct.rs`
+### 4. `order_struct.rs`
 
-#### Purpose:
-- Defines the `DailyBlotterData` structure.
-- Implements functionality to load data from a CSV file.
-
-#### Key Features:
-- Supports parsing and validating fields such as `orderdate`, `price`, `action`, and `side`.
-- Method: `load_from_file` to populate `Vec<DailyBlotterData>` from a CSV.
-
----
+- Defines the `DailyBlotterData` structure, any other structure can also be
+used with the with the two methods defined below.
+- Implements functionality to load data from a CSV file; Method: `load_from_file`
+- Provides a way to write the records to a CSV file; Method: `write_to_file`
 
 ## Data Handling Workflow
 
-1. **Load Data**:
-   - `DailyBlotterData` records are read from a CSV file using `load_from_file` in `order_struct.rs`.
+### Data Loading:
+- Data is loaded from a CSV file into a structured format (DailyBlotterData or any other type T).
 
-2. **Serialization**:
-   - Binary serialization involves:
-     - Converting the vector of `DailyBlotterData` into raw bytes.
-     - Generating a **lookup table** containing byte offsets for each record.
+### Serialization:
+- The data is serialized into a binary format and written to a file.
+- A memo file tracks the progress of serialization for fault tolerance.
 
-3. **Storage**:
-   - Both the serialized data and lookup table are written into a single binary file (`dump_with_lookup`).
+### Deserialization:
+- The binary data is deserialized back into the original format.
+- Supports full deserialization or range-based deserialization for specific segments.
 
-4. **Deserialization**:
-   - Reads back the binary file.
-   - Reconstructs the original `DailyBlotterData` vector using the lookup table and raw bytes.
-
-5. **Validation**:
-   - Compares the original and deserialized vectors to ensure data integrity.
+### Verification:
+- The deserialized data is compared with the original data to ensure integrity.
+- Results are written to a CSV file for verification.
 
 ---
 
 ## Technology Stack
 
 - **Language**: Rust
-- **Libraries**:
-  - `std::fs`: For file operations.
-  - `std::io`: For reading and writing data.
-
----
-
-## How to run
-Install the cargo utility:
-```rs
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-```
-restart the shell or source the config file.
-```rs
-cd yohsin
-cargo run --release
-```
-
----
-
-## How to test
-use cargo utility for testing the project:
-```rs
-git checkout testAutomation
-cd yohsin
-cargo test
-```
-
----
-
-## Key Strengths
-
-- **Performance**:
-  - Binary serialization is faster and more compact compared to traditional formats like JSON or XML.
-- **Data Integrity**:
-  - Ensures that serialized and deserialized data are identical.
+- **External Libraries**:
+  - `tokio`: For providing async-runtime.
