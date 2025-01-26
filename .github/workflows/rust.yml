@@ -16,10 +16,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Populate datafile
-      run: |
-        cd data_baker
-        cargo run --release
     - name: Build
       run: |
         cd yohsin
